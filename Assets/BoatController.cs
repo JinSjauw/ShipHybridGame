@@ -27,15 +27,18 @@ public class BoatController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (throttle != 0)
+        
+        
+        if (throttle != 0 && WaterCheck())
         {
-            Vector3 velocity = throttle * boatBody.transform.right * moveSpeed * Time.deltaTime;
-            velocity = Quaternion.AngleAxis(turnAngle, Vector3.up) * velocity;
-            boatBody.AddForce(velocity, ForceMode.Acceleration);
+            Vector3 velocity = throttle * boatBody.transform.forward * moveSpeed * Time.deltaTime;
+            boatBody.transform.Rotate(Vector3.up, turnRate);
+            //velocity = Quaternion.AngleAxis(turnAngle, Vector3.up) * velocity;
+            boatBody.AddForce(velocity, ForceMode.VelocityChange);
         }
         
         //Rotate Rudder (if turnangle changed)
-        if (turnRate != 0)
+        /*if (turnRate != 0)
         {
             if (Mathf.Abs(turnAngle) < maxTurnAngle)
             {
@@ -43,34 +46,32 @@ public class BoatController : MonoBehaviour
                 turnAngle += turnRate * turnSpeed * Time.deltaTime;
             }
             rudderTransform.localRotation = Quaternion.AngleAxis(turnAngle, Vector3.up);
-        }
+        }*/
     }
 
-    public void OnThrottle(InputAction.CallbackContext context)
+    private bool WaterCheck()
+    {
+        if (Physics.Raycast(boatBody.position, Vector3.down, 10f, LayerMask.GetMask("Water")))
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public void OnMove(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            Debug.Log("Thrusting: " + context.ReadValue<float>());
-            throttle = context.ReadValue<float>();
+            Debug.Log("Moving: " + context.ReadValue<Vector2>());
+            throttle = context.ReadValue<Vector2>().y;
+            turnRate = context.ReadValue<Vector2>().x;
             //boatBody.AddForce(context.ReadValue<float>() * boatBody.transform.right * moveSpeed, ForceMode.Acceleration);
         }
 
         if (context.canceled)
         {
             throttle = 0;
-        }
-    }
-    
-    public void OnRudder(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            turnRate = context.ReadValue<float>();
-        }
-
-        if (context.canceled)
-        {
-            turnRate = 0;
         }
     }
 }
