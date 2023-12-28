@@ -85,7 +85,7 @@ Material:
     - _Color: {r: 0, g: 0.43809557, b: 1, a: 1}
     - _Direction: {r: 0.53, g: 1.33, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _WaveA: {r: 0.15, g: -0.16, b: 0.2, a: 40.6}
-    - _WaveB: {r: -3.3, g: -3.88, b: 0.16, a: 17.75}
-    - _WaveC: {r: 0, g: 0.04, b: 0.36, a: 10.03}
+    - _WaveA: {r: 1, g: 0.45, b: 0.05, a: 30}
+    - _WaveB: {r: 0.02, g: 0.71, b: 0.1, a: 64}
+    - _WaveC: {r: 0.14, g: 0.1, b: 0.15, a: 20}
   m_BuildTextureStacks: []
