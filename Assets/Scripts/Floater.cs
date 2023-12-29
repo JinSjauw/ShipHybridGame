@@ -1,7 +1,4 @@
-using System;
-using TreeEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Floater : MonoBehaviour
 {
@@ -12,7 +9,7 @@ public class Floater : MonoBehaviour
     [SerializeField] private float waterDrag = 0.99f;
     [SerializeField] private float waterAngularDrag = 0.5f;
     [SerializeField] [Range(0f, 0.5f)]private float floaterMass = .2f;
-    
+
     private void FixedUpdate()
     {
         Vector3 floaterPosition = transform.position;
@@ -32,7 +29,7 @@ public class Floater : MonoBehaviour
             
             //Bouyancy - Y Axis
             //Make it so the boat tries to get to the wave height and then stops 
-            Vector3 surfaceDirection = transform.up;
+            Vector3 surfaceDirection = Vector3.up;
 
             Vector3 floaterWorldVelocity = boatBody.GetPointVelocity(floaterPosition);
             
@@ -42,14 +39,14 @@ public class Floater : MonoBehaviour
             //Calculate velocity along the up axis of the floater
             float velocity = Vector3.Dot(surfaceDirection, floaterWorldVelocity);
 
-            float force = (offset * displacementAmount) - (velocity * waterDrag);
+            float force = boatBody.mass * (offset * displacementAmount - velocity * waterDrag);
             
             boatBody.AddForceAtPosition(surfaceDirection * force, floaterPosition);
-            
+
             //Bouyancy - Drag/Steering
             Vector3 steeringDirection = transform.right;
             float steeringVelocity = Vector3.Dot(steeringDirection, floaterWorldVelocity);
-            float desiredVelocityChange = -steeringVelocity * waterDrag;
+            float desiredVelocityChange = boatBody.mass * (-steeringVelocity * waterDrag);
             float desiredAcceleration = desiredVelocityChange / Time.fixedDeltaTime;
             
             //Apply drag force
