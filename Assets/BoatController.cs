@@ -11,8 +11,11 @@ public class BoatController : MonoBehaviour
     [SerializeField] private Transform engineTransform;
     [SerializeField] private List<Transform> steeringPoints;
     [SerializeField] private List<Transform> accelerationPoints;
+    [SerializeField] private List<Floater> floaters;
 
-    [Header("Boat Speed")]
+    [Header("Boat Locomotion")]
+    
+    [Header("Boat Acceleration")]
     [SerializeField] private float boatTopSpeed;
     [SerializeField] private AnimationCurve powerCurve;
     [SerializeField] private float accelerationDelta;
@@ -22,6 +25,10 @@ public class BoatController : MonoBehaviour
     [SerializeField] private float turnSpeed;
     [SerializeField] private float maxTurnAngle = 40;
     [SerializeField] private AnimationCurve dragCurve;
+
+    [Header("Boat Buoyancy")] 
+    [SerializeField] private float springStrength;
+    [SerializeField] private float damperStrength;
     
     private Rigidbody boatBody;
 
@@ -38,11 +45,18 @@ public class BoatController : MonoBehaviour
     void Start()
     {
         boatBody = GetComponent<Rigidbody>();
+
+        foreach (Floater floater in floaters)
+        {
+            floater.SetDragCurve(dragCurve);
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        KeepUpright();
+        
         if (throttle != 0 && WaterCheck())
         {
             boatSpeed = Vector3.Dot(transform.forward, boatBody.velocity);
@@ -59,8 +73,9 @@ public class BoatController : MonoBehaviour
             foreach (Transform point in accelerationPoints)
             {
                 Vector3 accelDirection = point.forward;
-                Debug.Log("BoatSpeed " + boatSpeed + " Normalized Speed: " + normalizedSpeed);
-                Debug.Log("Acceleration: " + availablePower);
+                accelDirection.y = 0;
+                /*Debug.Log("BoatSpeed " + boatSpeed + " Normalized Speed: " + normalizedSpeed);
+                Debug.Log("Acceleration: " + availablePower);*/
                 boatBody.AddForceAtPosition(accelDirection * availablePower * 10f, point.position);
             }
 
@@ -83,6 +98,18 @@ public class BoatController : MonoBehaviour
         
     }
 
+    private void KeepUpright()
+    {
+        float offset = Mathf.Clamp01(1f - Vector3.Dot(Vector3.up, boatBody.transform.up));
+        
+        Debug.Log("Deck Offset: " + Mathf.Clamp01(1f - offset));
+        
+        Vector3 springTorque = boatBody.mass * (offset * springStrength) * Vector3.Cross(boatBody.transform.up, Vector3.up);
+        Vector3 dampTorque = boatBody.mass * (damperStrength) * boatBody.angularVelocity;
+
+        boatBody.AddTorque(springTorque - dampTorque);
+    }
+    
     private bool WaterCheck()
     {
         Vector3 enginePosition = engineTransform.position;

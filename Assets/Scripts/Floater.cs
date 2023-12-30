@@ -3,18 +3,18 @@ using UnityEngine;
 public class Floater : MonoBehaviour
 {
     [SerializeField] private Rigidbody boatBody;
-    [SerializeField] float depthBeforeSubmerged = 1f;
+    [SerializeField] private bool isSubmerged;
     [SerializeField] float displacementAmount = 3f;
     [SerializeField] private int floaterCount = 1;
     [SerializeField] private float waterDrag = 0.99f;
-    [SerializeField] private float waterAngularDrag = 0.5f;
+    [SerializeField] private AnimationCurve dragCurve;
     [SerializeField] [Range(0f, 0.5f)]private float floaterMass = .2f;
-
+    
     private void FixedUpdate()
     {
         Vector3 floaterPosition = transform.position;
         
-        boatBody.AddForceAtPosition(Physics.gravity / floaterCount, floaterPosition, ForceMode.Acceleration);
+        boatBody.AddForceAtPosition((Physics.gravity / floaterCount) * boatBody.mass, floaterPosition);
         //find point
         float waveHeight = WaveManager.Instance.FindPoint(new Vector2(floaterPosition.x, floaterPosition.z)).y;
         if (floaterPosition.y < waveHeight)
@@ -38,19 +38,29 @@ public class Floater : MonoBehaviour
             
             //Calculate velocity along the up axis of the floater
             float velocity = Vector3.Dot(surfaceDirection, floaterWorldVelocity);
-
+            
             float force = boatBody.mass * (offset * displacementAmount - velocity * waterDrag);
             
-            boatBody.AddForceAtPosition(surfaceDirection * force, floaterPosition);
+            if (!isSubmerged)
+            {
+                boatBody.AddForceAtPosition(surfaceDirection * force, floaterPosition);
+            }
 
             //Bouyancy - Drag/Steering
             Vector3 steeringDirection = transform.right;
             float steeringVelocity = Vector3.Dot(steeringDirection, floaterWorldVelocity);
-            float desiredVelocityChange = boatBody.mass * (-steeringVelocity * waterDrag);
+            /*Debug.Log("Velocity : " + steeringVelocity);
+            Debug.Log("Drag : " + dragCurve.Evaluate(Mathf.Abs(steeringVelocity)));*/
+            float desiredVelocityChange = boatBody.mass * (-steeringVelocity * dragCurve.Evaluate(Mathf.Abs(steeringVelocity)));
             float desiredAcceleration = desiredVelocityChange / Time.fixedDeltaTime;
             
             //Apply drag force
             boatBody.AddForceAtPosition(steeringDirection * floaterMass * desiredAcceleration, floaterPosition);
         }
+    }
+
+    public void SetDragCurve(AnimationCurve curve)
+    {
+        dragCurve = curve;
     }
 }
