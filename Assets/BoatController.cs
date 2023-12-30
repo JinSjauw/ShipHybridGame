@@ -95,14 +95,13 @@ public class BoatController : MonoBehaviour
                 }
             }
         }
-        
     }
 
     private void KeepUpright()
     {
         float offset = Mathf.Clamp01(1f - Vector3.Dot(Vector3.up, boatBody.transform.up));
         
-        Debug.Log("Deck Offset: " + Mathf.Clamp01(1f - offset));
+        //Debug.Log("Deck Offset: " + Mathf.Clamp01(1f - offset));
         
         Vector3 springTorque = boatBody.mass * (offset * springStrength) * Vector3.Cross(boatBody.transform.up, Vector3.up);
         Vector3 dampTorque = boatBody.mass * (damperStrength) * boatBody.angularVelocity;
@@ -121,26 +120,42 @@ public class BoatController : MonoBehaviour
         return false;
     }
     
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnThrust(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             //Debug.Log("Moving: " + context.ReadValue<Vector2>());
-            throttle = context.ReadValue<Vector2>().y;
-            turnRate = context.ReadValue<Vector2>().x;
-            
-            if (turnRate != 0)
-            {
-                isTurning = true;
-            }
+            throttle = context.ReadValue<float>();
             //boatBody.AddForce(context.ReadValue<float>() * boatBody.transform.right * moveSpeed, ForceMode.Acceleration);
         }
 
         if (context.canceled)
         {
             throttle = 0;
+        }
+    }
+
+    public void OnSteer(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            turnRate = context.ReadValue<float>();
+            Debug.Log(turnRate);
+            if (turnRate != 0)
+            {
+                isTurning = true;
+            }
+        }
+
+        if (context.canceled)
+        {
             turnRate = 0;
+            turnAngle = 0;
             isTurning = false;
+            foreach (Transform point in steeringPoints)
+            {
+                point.localRotation = Quaternion.Euler(0,0,0);
+            }
         }
     }
 }

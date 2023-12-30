@@ -6,10 +6,19 @@
             "id": "1d555b61-320f-4652-b9b4-fb9a1ba975e1",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Thrust",
                     "type": "Value",
                     "id": "0a4a0199-7492-42fd-a8d1-a673e9bd3833",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Steer",
+                    "type": "Value",
+                    "id": "66b21886-c866-4e72-9c27-cd7173f87dca",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -17,57 +26,68 @@
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
-                    "id": "fe66a293-d50f-47e2-8d66-5129cff6f98a",
-                    "path": "2DVector(mode=2)",
+                    "name": "1D Axis",
+                    "id": "a78cee12-0156-49dd-87e1-3d166fc3938d",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Thrust",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "6f7b8fc0-c9f3-4973-86fc-f0c1200e4539",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "d7b77b67-2943-4f85-b1bc-f539ec8cd370",
+                    "name": "negative",
+                    "id": "45fd70de-2846-4f54-9358-aaa29261fda0",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Thrust",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
-                    "id": "2436a472-7b11-46cd-bccc-23bd22ae113d",
+                    "name": "positive",
+                    "id": "25476380-26a1-4f5d-b7d9-5d7b479b5900",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Thrust",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "90b80251-f5d9-421d-913a-42da3b8db083",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "20beab75-8b30-4ae7-9a8a-da86b6804010",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
-                    "id": "bfffc4b2-16c3-436b-84c4-f546146f84ef",
+                    "name": "positive",
+                    "id": "eda76612-daa4-44b0-bae8-161918a3d075",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
