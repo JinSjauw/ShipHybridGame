@@ -612,9 +612,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OceanRenderer: {fileID: 1575323654}
-  WaveA: {x: 1, y: 0.45, z: 0.05, w: 30}
-  WaveB: {x: 0.02, y: 0.71, z: 0.1, w: 64}
-  WaveC: {x: 0.14, y: 0.1, z: 0.15, w: 20}
+  WaveA: {x: 1, y: -0.45, z: 0.05, w: 120.24}
+  WaveB: {x: 0.4, y: 0.28, z: 0.1, w: 60}
+  WaveC: {x: 0.19, y: -0.2, z: 0.08, w: 31.13}
 --- !u!114 &118436229040881418
 MonoBehaviour:
   m_ObjectHideFlags: 0
