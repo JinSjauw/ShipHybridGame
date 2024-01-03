@@ -24,7 +24,8 @@ public class BoatController : MonoBehaviour
     [Header("Boat Steering")]
     [SerializeField] private float turnSpeed;
     [SerializeField] private float maxTurnAngle = 40;
-    [SerializeField] private AnimationCurve dragCurve;
+    [SerializeField] private AnimationCurve frontDragCurve;
+    [SerializeField] private AnimationCurve backDragCurve;
 
     [Header("Boat Buoyancy")] 
     [SerializeField] private float springStrength;
@@ -34,6 +35,7 @@ public class BoatController : MonoBehaviour
 
     private bool isMoving;
     private bool isTurning;
+    private bool isDrifing;
     
     private float throttle;
     private float boatSpeed;
@@ -48,8 +50,16 @@ public class BoatController : MonoBehaviour
 
         foreach (Floater floater in floaters)
         {
-            floater.SetDragCurve(dragCurve);
+            floater.SetDragCurve(frontDragCurve);
         }
+
+        /*foreach (Transform accelPoint in accelerationPoints)
+        {
+            if (accelPoint.TryGetComponent(out Floater floater))
+            {
+                floater.SetDragCurve(backDragCurve);
+            }
+        }*/
     }
 
     // Update is called once per frame
@@ -90,10 +100,16 @@ public class BoatController : MonoBehaviour
                     float angleChange = turnRate * turnSpeed * Time.fixedDeltaTime;
                     turnAngle += angleChange;
                     turnAngle = Mathf.Clamp(turnAngle, -maxTurnAngle, maxTurnAngle);
-                    //point.rotation *= Quaternion.AngleAxis(angleChange, Vector3.up);
                     point.localRotation = Quaternion.Euler(0, turnAngle, 0);
                 }
             }
+        }
+
+        if (isDrifing)
+        {
+            float force = boatBody.mass * 20f;
+            boatBody.AddTorque(transform.up * (3f * boatBody.mass) * turnRate);
+            boatBody.AddRelativeForce(boatBody.transform.right * turnRate * force);
         }
     }
 
@@ -140,7 +156,7 @@ public class BoatController : MonoBehaviour
         if (context.started)
         {
             turnRate = context.ReadValue<float>();
-            Debug.Log(turnRate);
+            //Debug.Log(turnRate);
             if (turnRate != 0)
             {
                 isTurning = true;
@@ -156,6 +172,26 @@ public class BoatController : MonoBehaviour
             {
                 point.localRotation = Quaternion.Euler(0,0,0);
             }
+        }
+    }
+
+    public void OnDrift(InputAction.CallbackContext context)
+    {
+        //Check the steering input and acceleration.
+        
+        //#Core points for drifting
+        
+        //Apply a force to the side of the rigidbody (depending on steering input)
+        //In addition to the forward force
+
+        if (isTurning && context.started)
+        {
+            isDrifing = true;
+        }
+
+        if (context.canceled || !isTurning)
+        {
+            isDrifing = false;
         }
     }
 }

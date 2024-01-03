@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,106 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &11860115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 11860119}
+  - component: {fileID: 11860118}
+  - component: {fileID: 11860117}
+  - component: {fileID: 11860116}
+  m_Layer: 4
+  m_Name: 'Flat '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &11860116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11860115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c214adadc1d9f4c82462ec58196e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OceanRenderer: {fileID: 11860117}
+  WaveA: {x: 1, y: -0.5, z: 0, w: 120}
+  WaveB: {x: 0.4, y: 0.3, z: 0, w: 60}
+  WaveC: {x: 0.2, y: -0.2, z: 0, w: 31}
+--- !u!23 &11860117
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11860115}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 804dda8237c73d04da4a56c7a114160a, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &11860118
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11860115}
+  m_Mesh: {fileID: 4300000, guid: 3be9c8d549c7e4907a8eeb6a5476a60f, type: 2}
+--- !u!4 &11860119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11860115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120608518
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boatBody: {fileID: 120608519}
   isSubmerged: 0
-  displacementAmount: 3
+  displacementAmount: 10
   floaterCount: 1
   waterDrag: 0.99
   dragCurve:
@@ -280,7 +380,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  floaterMass: 0.5
+  floaterMass: 0.25
+  debugCurve: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1575323654
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -612,9 +713,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OceanRenderer: {fileID: 1575323654}
-  WaveA: {x: 1, y: -0.45, z: 0.05, w: 120.24}
-  WaveB: {x: 0.4, y: 0.28, z: 0.1, w: 60}
-  WaveC: {x: 0.19, y: -0.2, z: 0.08, w: 31.13}
+  WaveA: {x: 1, y: -0.5, z: 0.05, w: 120}
+  WaveB: {x: 0.4, y: 0.3, z: 0.1, w: 60}
+  WaveC: {x: 0.2, y: -0.2, z: 0.08, w: 31}
 --- !u!114 &118436229040881418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,6 +740,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!4 &337380478541860309
 Transform:
   m_ObjectHideFlags: 0
@@ -875,6 +977,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!1 &2424675636663099787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,6 +1204,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!1 &2720638302590395470
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,6 +1254,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 10
+  debugCurve: 0
 --- !u!4 &3582337860174889447
 Transform:
   m_ObjectHideFlags: 0
@@ -1250,37 +1355,52 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  turnSpeed: 100
+  turnSpeed: 50
   maxTurnAngle: 40
-  dragCurve:
+  frontDragCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.001816865
-      value: 0.9952875
-      inSlope: -0.27620447
-      outSlope: -0.27620447
+      time: 0
+      value: 1
+      inSlope: -0.59929633
+      outSlope: -0.59929633
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6393472
-      value: 0.8181951
-      inSlope: -1.1399528
-      outSlope: -1.1399528
-      tangentMode: 0
+      time: 0.99566466
+      value: 0.40330186
+      inSlope: -0.59929633
+      outSlope: -0.59929633
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.4760912
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  backDragCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00289011
+      value: 0.26179248
+      inSlope: -0.15270881
+      outSlope: -0.15270881
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.99818325
-      value: 0.11168728
-      inSlope: 0.0000026315213
-      outSlope: 0.0000026315213
-      tangentMode: 0
+      time: 0.99132943
+      value: 0.11084908
+      inSlope: -0.15270881
+      outSlope: -0.15270881
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.07751267
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1334,6 +1454,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!23 &3886842441909239449
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1563,6 +1684,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!1 &5150862980691444093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,6 +1870,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!4 &6107682222686045805
 Transform:
   m_ObjectHideFlags: 0
@@ -1818,6 +1941,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 10
+  debugCurve: 0
 --- !u!114 &6349890518547269055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1875,6 +1999,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 66b21886-c866-4e72-9c27-cd7173f87dca
     m_ActionName: Gameplay/Steer[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3624125744407478784}
+        m_TargetAssemblyTypeName: BoatController, Assembly-CSharp
+        m_MethodName: OnDrift
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: aaa5c8a7-382f-4a3a-86ea-aacae22fb205
+    m_ActionName: Gameplay/Drift[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -1921,6 +2061,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!4 &6804920928530259310
 Transform:
   m_ObjectHideFlags: 0
@@ -2055,6 +2196,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!114 &7099900870314498546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2079,6 +2221,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!4 &7112180591744765948
 Transform:
   m_ObjectHideFlags: 0
@@ -2118,6 +2261,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 10
+  debugCurve: 0
 --- !u!33 &7577286899558947752
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2168,7 +2312,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7737770759962039441}
-  m_LocalRotation: {x: -0, y: -0, z: -0.70710707, w: 0.70710653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 5.32, z: 8.11}
   m_LocalScale: {x: 0.64645, y: 0.64645, z: 0.64645}
   m_ConstrainProportionsScale: 0
@@ -2178,7 +2322,7 @@ Transform:
   - {fileID: 4438425907555568988}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8003431367881202687
 Transform:
   m_ObjectHideFlags: 0
@@ -2326,6 +2470,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 10
+  debugCurve: 0
 --- !u!1 &8628576895377722982
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,6 +2554,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   floaterMass: 0.2
+  debugCurve: 0
 --- !u!4 &9017871567641352879
 Transform:
   m_ObjectHideFlags: 0

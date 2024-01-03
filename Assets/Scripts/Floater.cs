@@ -9,6 +9,8 @@ public class Floater : MonoBehaviour
     [SerializeField] private float waterDrag = 0.99f;
     [SerializeField] private AnimationCurve dragCurve;
     [SerializeField] [Range(0, .25f)]private float floaterMass = .2f;
+
+    [SerializeField] private bool debugCurve;
     
     private void FixedUpdate()
     {
@@ -32,7 +34,7 @@ public class Floater : MonoBehaviour
             //Calculate velocity along the up axis of the floater
             float velocity = Vector3.Dot(surfaceDirection, floaterWorldVelocity);
             
-            float force = boatBody.mass * (offset * displacementAmount - velocity * waterDrag);
+            float force = boatBody.mass * (offset * displacementAmount - velocity * dragCurve.Evaluate(velocity));
             
             if (!isSubmerged)
             {
@@ -42,8 +44,13 @@ public class Floater : MonoBehaviour
             //Bouyancy - Drag/Steering
             Vector3 steeringDirection = transform.right;
             float steeringVelocity = Vector3.Dot(steeringDirection, floaterWorldVelocity);
-            /*Debug.Log("Velocity : " + steeringVelocity);
-            Debug.Log("Drag : " + dragCurve.Evaluate(Mathf.Abs(steeringVelocity)));*/
+            
+            if (debugCurve)
+            {
+                Debug.Log("Velocity : " + steeringVelocity);
+                Debug.Log("Drag : " + dragCurve.Evaluate(Mathf.Abs(steeringVelocity)));
+            }
+            
             float desiredVelocityChange = (-steeringVelocity * dragCurve.Evaluate(Mathf.Abs(steeringVelocity)));
             float desiredAcceleration = desiredVelocityChange / Time.fixedDeltaTime;
             
@@ -55,5 +62,6 @@ public class Floater : MonoBehaviour
     public void SetDragCurve(AnimationCurve curve)
     {
         dragCurve = curve;
+        //debugCurve = true;
     }
 }
