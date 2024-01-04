@@ -12,7 +12,9 @@ public class BoatController : MonoBehaviour
     [SerializeField] private List<Transform> steeringPoints;
     [SerializeField] private List<Transform> accelerationPoints;
     [SerializeField] private List<Floater> floaters;
-
+    [SerializeField] private Transform nose;
+    [SerializeField] private bool showForces;
+    
     [Header("Boat Locomotion")]
     
     [Header("Boat Acceleration")]
@@ -32,13 +34,14 @@ public class BoatController : MonoBehaviour
     [SerializeField] private float damperStrength;
     
     private Rigidbody boatBody;
-
+    
     private bool isMoving;
     private bool isTurning;
-    private bool isDrifing;
+    private bool isDrifting;
     
     private float throttle;
     private float boatSpeed;
+    private float normalizedSpeed;
     
     private float turnRate;
     private float turnAngle;
@@ -51,15 +54,16 @@ public class BoatController : MonoBehaviour
         foreach (Floater floater in floaters)
         {
             floater.SetDragCurve(frontDragCurve);
+            floater.SetFrictionCurve(frontDragCurve);
         }
 
-        /*foreach (Transform accelPoint in accelerationPoints)
+        foreach (Transform accelPoint in accelerationPoints)
         {
             if (accelPoint.TryGetComponent(out Floater floater))
             {
-                floater.SetDragCurve(backDragCurve);
+                floater.SetFrictionCurve(backDragCurve);
             }
-        }*/
+        }
     }
 
     // Update is called once per frame
@@ -67,12 +71,15 @@ public class BoatController : MonoBehaviour
     {
         KeepUpright();
         
+        //Debugging Forces
+        
+        //Debug.DrawRay(nose.transform.position, boatBody.velocity, Color.blue);
+
+        boatSpeed = Vector3.Dot(transform.forward, boatBody.velocity);
+        normalizedSpeed = Mathf.Clamp01(Mathf.Abs(boatSpeed / boatTopSpeed));
+        
         if (throttle != 0 && WaterCheck())
         {
-            boatSpeed = Vector3.Dot(transform.forward, boatBody.velocity);
-
-            float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(boatSpeed / boatTopSpeed));
-
             if (normalizedSpeed >= .99f)
             {
                 return;
@@ -83,14 +90,18 @@ public class BoatController : MonoBehaviour
             foreach (Transform point in accelerationPoints)
             {
                 Vector3 accelDirection = point.forward;
+                /*if (isDrifing)
+                {
+                    accelDirection = Quaternion.AngleAxis(turnAngle * turnRate, Vector3.up) * accelDirection;
+                }*/
                 accelDirection.y = 0;
                 /*Debug.Log("BoatSpeed " + boatSpeed + " Normalized Speed: " + normalizedSpeed);
                 Debug.Log("Acceleration: " + availablePower);*/
                 boatBody.AddForceAtPosition(accelDirection * availablePower * 10f, point.position);
+                DrawArrow.ForDebug(nose.position, accelDirection * availablePower * 10f, Color.yellow);
             }
-
         }
-
+        
         if (isTurning)
         {
             foreach (Transform point in steeringPoints)
@@ -105,11 +116,27 @@ public class BoatController : MonoBehaviour
             }
         }
 
-        if (isDrifing)
+        if (isDrifting)
         {
-            float force = boatBody.mass * 20f;
-            boatBody.AddTorque(transform.up * (3f * boatBody.mass) * turnRate);
-            boatBody.AddRelativeForce(boatBody.transform.right * turnRate * force);
+            float force = boatBody.mass * 35f;
+            float torque = boatBody.mass * turnAngle;
+            //boatBody.AddTorque(transform.up * torque * turnRate);
+            //boatBody.AddForce(boatBody.transform.right * force);
+            
+            foreach (Floater floater in floaters)
+            {
+                floater.UseDriftCurve(true);
+            }
+            
+            if (showForces)
+            {
+                DrawArrow.ForDebug(transform.position, boatBody.transform.right * force * .3f, Color.magenta);
+            }
+        }
+        
+        if (showForces)
+        {
+            DrawArrow.ForDebug(nose.transform.position, boatBody.velocity.normalized * 3f * normalizedSpeed, Color.blue);
         }
     }
 
@@ -160,17 +187,29 @@ public class BoatController : MonoBehaviour
             if (turnRate != 0)
             {
                 isTurning = true;
+
+                if (isDrifting)
+                {
+                    turnAngle = 0;
+                    foreach (Transform point in steeringPoints)
+                    {
+                        point.localRotation = Quaternion.Euler(0,0,0);
+                    }
+                }
             }
         }
 
         if (context.canceled)
         {
             turnRate = 0;
-            turnAngle = 0;
             isTurning = false;
-            foreach (Transform point in steeringPoints)
+            if (!isDrifting)
             {
-                point.localRotation = Quaternion.Euler(0,0,0);
+                turnAngle = 0;
+                foreach (Transform point in steeringPoints)
+                {
+                    point.localRotation = Quaternion.Euler(0,0,0);
+                }
             }
         }
     }
@@ -184,14 +223,23 @@ public class BoatController : MonoBehaviour
         //Apply a force to the side of the rigidbody (depending on steering input)
         //In addition to the forward force
 
-        if (isTurning && context.started)
+        if (context.started)
         {
-            isDrifing = true;
+            isDrifting = true;
         }
 
-        if (context.canceled || !isTurning)
+        if (context.canceled)
         {
-            isDrifing = false;
+            isDrifting = false;
+            foreach (Floater floater in floaters)
+            {
+                floater.UseDriftCurve(false);
+            }
+            turnAngle = 0;
+            foreach (Transform point in steeringPoints)
+            {
+                point.localRotation = Quaternion.Euler(0,0,0);
+            }
         }
     }
 }

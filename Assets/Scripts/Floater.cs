@@ -8,9 +8,15 @@ public class Floater : MonoBehaviour
     [SerializeField] private int floaterCount = 1;
     [SerializeField] private float waterDrag = 0.99f;
     [SerializeField] private AnimationCurve dragCurve;
+    [SerializeField] private AnimationCurve frictionCurve;
+    [SerializeField] private AnimationCurve driftingCurve;
     [SerializeField] [Range(0, .25f)]private float floaterMass = .2f;
 
     [SerializeField] private bool debugCurve;
+    [SerializeField] private bool showForces = true;
+    private float frictionVelocity;
+    private Vector3 steeringDir;
+    private bool isDrifting;
     
     private void FixedUpdate()
     {
@@ -48,20 +54,45 @@ public class Floater : MonoBehaviour
             if (debugCurve)
             {
                 Debug.Log("Velocity : " + steeringVelocity);
-                Debug.Log("Drag : " + dragCurve.Evaluate(Mathf.Abs(steeringVelocity)));
+                //Debug.Log("Drag : " + driftingCurve.Evaluate(Mathf.Abs(steeringVelocity)));
+            }
+
+            float desiredVelocityChange = (-steeringVelocity * frictionCurve.Evaluate(Mathf.Abs(steeringVelocity)));
+
+            if (isDrifting)
+            {
+                desiredVelocityChange = (-steeringVelocity * driftingCurve.Evaluate(Mathf.Abs(steeringVelocity)));
             }
             
-            float desiredVelocityChange = (-steeringVelocity * dragCurve.Evaluate(Mathf.Abs(steeringVelocity)));
+            
             float desiredAcceleration = desiredVelocityChange / Time.fixedDeltaTime;
+           
+            steeringDir = steeringDirection;
+            frictionVelocity = desiredAcceleration;
             
             //Apply drag force
             boatBody.AddForceAtPosition(boatBody.mass * (steeringDirection * floaterMass * desiredAcceleration), floaterPosition);
+        }
+        
+        if (showForces)
+        {
+            DrawArrow.ForDebug(transform.position, (steeringDir * floaterMass * frictionVelocity), Color.red);
         }
     }
 
     public void SetDragCurve(AnimationCurve curve)
     {
-        dragCurve = curve;
+        dragCurve.CopyFrom(curve);
         //debugCurve = true;
+    }
+
+    public void SetFrictionCurve(AnimationCurve curve)
+    {
+        frictionCurve.CopyFrom(curve);
+    }
+
+    public void UseDriftCurve(bool state)
+    {
+        isDrifting = state;
     }
 }
