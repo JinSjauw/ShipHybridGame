@@ -61,9 +61,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _DepthMaxDistance: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
@@ -75,17 +75,15 @@ Material:
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 5
     - _SrcBlend: 1
-    - _Steepness: 0.296
     - _UVSec: 0
-    - _Wavelength: 10
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0, g: 0.43809557, b: 1, a: 1}
-    - _Direction: {r: 0.53, g: 1.33, b: 0, a: 0}
+    - _DepthGradientDeep: {r: 0.086, g: 0.407, b: 1, a: 0.749}
+    - _DepthGradientShallow: {r: 0.325, g: 0.807, b: 0.971, a: 0.725}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _WaveA: {r: 1, g: -0.5, b: 0, a: 120}
-    - _WaveB: {r: 0.4, g: 0.3, b: 0, a: 60}
-    - _WaveC: {r: 0.2, g: -0.2, b: 0, a: 31}
+    - _WaveA: {r: 1, g: -0.5, b: 0.05, a: 120}
+    - _WaveB: {r: 0.4, g: 0.3, b: 0.1, a: 60}
+    - _WaveC: {r: 0.2, g: -0.2, b: 0.08, a: 31}
   m_BuildTextureStacks: []
