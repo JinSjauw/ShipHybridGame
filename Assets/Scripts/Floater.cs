@@ -5,8 +5,8 @@ public class Floater : MonoBehaviour
     [SerializeField] private Rigidbody boatBody;
     [SerializeField] private bool isSubmerged;
     [SerializeField] float displacementAmount = 3f;
-    [SerializeField] private int floaterCount = 1;
-    [SerializeField] private float waterDrag = 0.99f;
+    /*[SerializeField] private int floaterCount = 1;
+    [SerializeField] private float waterDrag = 0.99f;*/
     [SerializeField] private AnimationCurve dragCurve;
     [SerializeField] private AnimationCurve frictionCurve;
     [SerializeField] private AnimationCurve driftingCurve;

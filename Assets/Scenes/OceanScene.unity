@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -372,8 +372,6 @@ MonoBehaviour:
   boatBody: {fileID: 120608519}
   isSubmerged: 0
   displacementAmount: 40
-  floaterCount: 1
-  waterDrag: 0.99
   dragCurve:
     serializedVersion: 2
     m_Curve:
@@ -1349,8 +1347,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 0.6
-  floaterCount: 8
-  waterDrag: 0.2
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -1426,7 +1422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &687917462724460280
 Transform:
   m_ObjectHideFlags: 0
@@ -1614,7 +1610,7 @@ MonoBehaviour:
   - {fileID: 1773335980836522556}
   nose: {fileID: 160479456}
   showForces: 1
-  boatTopSpeed: 25
+  boatTopSpeed: 20
   powerCurve:
     serializedVersion: 2
     m_Curve:
@@ -1657,15 +1653,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationDelta: 0
-  accelerationCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  turnSpeed: 15
-  maxTurnAngle: 40
+  turnSpeed: 10
+  maxTurnAngle: 30
   frontDragCurve:
     serializedVersion: 2
     m_Curve:
@@ -1781,8 +1770,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 1
   displacementAmount: 10
-  floaterCount: 5
-  waterDrag: 0
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -1875,8 +1862,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 0.6
-  floaterCount: 8
-  waterDrag: 0.2
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -2123,8 +2108,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 40
-  floaterCount: 4
-  waterDrag: 1
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -2341,8 +2324,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 0.6
-  floaterCount: 8
-  waterDrag: 0.2
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -2414,7 +2395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4211684257084556546
 Transform:
   m_ObjectHideFlags: 0
@@ -2450,8 +2431,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 0.6
-  floaterCount: 8
-  waterDrag: 0.2
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -2488,8 +2467,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 0.6
-  floaterCount: 8
-  waterDrag: 0.2
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -2628,7 +2605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5924248714504509463
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,8 +2637,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 40
-  floaterCount: 4
-  waterDrag: 1
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -2742,8 +2717,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 40
-  floaterCount: 4
-  waterDrag: 1
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -2881,7 +2854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6448301985592197805
 Transform:
   m_ObjectHideFlags: 0
@@ -2951,7 +2924,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787805091184406563}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3001,8 +2974,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 0.6
-  floaterCount: 8
-  waterDrag: 0.2
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -3054,8 +3025,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 1
-  floaterCount: 3
-  waterDrag: 0.5
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -3151,7 +3120,7 @@ Transform:
   m_GameObject: {fileID: 5325915344225185366}
   m_LocalRotation: {x: -0.49999994, y: -0.50000006, z: -0.49999845, w: 0.50000155}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200, y: 200, z: 200}
+  m_LocalScale: {x: 224.46156, y: 251.05775, z: 228.76578}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9096853681517817894}
@@ -3204,8 +3173,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 1.5
-  floaterCount: 2
-  waterDrag: 0.5
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -3388,7 +3355,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5325915344225185366}
-  m_Mesh: {fileID: -1334848039687573939, guid: c684f8c5bba254c4daa6c831ed3689cf, type: 3}
+  m_Mesh: {fileID: -7387706064836869012, guid: d240de3435060224e804b7d2cb885c41, type: 3}
 --- !u!114 &8732033366342987886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3404,8 +3371,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 0.6
-  floaterCount: 8
-  waterDrag: 0.2
   dragCurve:
     serializedVersion: 2
     m_Curve: []
@@ -3478,8 +3443,6 @@ MonoBehaviour:
   boatBody: {fileID: 3685910420686785207}
   isSubmerged: 0
   displacementAmount: 40
-  floaterCount: 4
-  waterDrag: 1
   dragCurve:
     serializedVersion: 2
     m_Curve: []
