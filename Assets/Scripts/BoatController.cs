@@ -20,8 +20,8 @@ public class BoatController : MonoBehaviour
     [Header("Boat Acceleration")]
     [SerializeField] private float boatTopSpeed;
     [SerializeField] private AnimationCurve powerCurve;
-    [SerializeField] private float accelerationDelta;
-    [SerializeField] private AnimationCurve accelerationCurve;
+    /*[SerializeField] private float accelerationDelta;
+    [SerializeField] private AnimationCurve accelerationCurve;*/
     
     [Header("Boat Steering")]
     [SerializeField] private float turnSpeed;
@@ -86,7 +86,7 @@ public class BoatController : MonoBehaviour
             }
             
             float availablePower = powerCurve.Evaluate(normalizedSpeed) * throttle * boatBody.mass;
-
+    
             foreach (Transform point in accelerationPoints)
             {
                 Vector3 accelDirection = point.forward;
