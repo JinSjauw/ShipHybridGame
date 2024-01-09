@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TheKiwiCoder;
 
 public class MoveToPosition : ActionNode
@@ -10,11 +7,15 @@ public class MoveToPosition : ActionNode
     public bool updateRotation = true;
     public float acceleration = 40.0f;
     public float tolerance = 1.0f;
-
+    public float depth;
+    
     protected override void OnStart() {
         context.agent.stoppingDistance = stoppingDistance;
         context.agent.speed = speed;
+
+        blackboard.moveToPosition.y = depth;
         context.agent.destination = blackboard.moveToPosition;
+        
         context.agent.updateRotation = updateRotation;
         context.agent.acceleration = acceleration;
     }
