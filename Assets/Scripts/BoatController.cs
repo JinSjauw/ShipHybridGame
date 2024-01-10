@@ -104,7 +104,21 @@ public class BoatController : MonoBehaviour
         
         if (isTurning)
         {
-            foreach (Transform point in steeringPoints)
+            //Applies torque;
+            /*if (Mathf.Abs(turnAngle + turnRate) < maxTurnAngle)
+            {
+                float angleChange = turnRate * turnSpeed * Time.fixedDeltaTime;
+                turnAngle += angleChange;
+                turnAngle = Mathf.Clamp(turnAngle, -maxTurnAngle, maxTurnAngle);
+
+                Vector3 angularVelocity = new Vector3(0, turnAngle, 0);
+                Quaternion deltaRotation = Quaternion.Euler(boatBody.mass * angularVelocity * Time.fixedDeltaTime);
+                boatBody.MoveRotation(boatBody.rotation * deltaRotation);
+            }*/
+            
+            
+            //Turns the steering point;
+            /*foreach (Transform point in steeringPoints)
             {
                 if (Mathf.Abs(turnAngle + turnRate) < maxTurnAngle)
                 {
@@ -113,7 +127,7 @@ public class BoatController : MonoBehaviour
                     turnAngle = Mathf.Clamp(turnAngle, -maxTurnAngle, maxTurnAngle);
                     point.localRotation = Quaternion.Euler(0, turnAngle, 0);
                 }
-            }
+            }*/
         }
 
         if (isDrifting)

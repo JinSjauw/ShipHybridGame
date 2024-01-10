@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Name: RootNode
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: c3eb91d1fa07f5d47b20ca15e5c0d744
   position: {x: 183.00002, y: 56.833008}
   blackboard:
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: Selector
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: 1d63a329afb2b3147abdd769a750d3c3
   position: {x: 182.99998, y: 279}
   blackboard:
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
   m_Name: Sequencer
   m_EditorClassIdentifier: 
-  state: 0
+  state: 1
   started: 0
   guid: f2e1349161a63cb42b2adf6e63f7c412
   position: {x: -270.87506, y: 432}
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8cd5533337c8d469507ad76075d0f9, type: 3}
   m_Name: RandomFailure
   m_EditorClassIdentifier: 
-  state: 0
+  state: 1
   started: 0
   guid: a0d3642ae9188c74e882e62c29cca80a
   position: {x: -420.87503, y: 564.99994}
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Name: Sequencer
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: 2931c3bc1869af94ea5ab9266bdcd828
   position: {x: -203.87476, y: 427}
   blackboard:
@@ -624,7 +624,7 @@ MonoBehaviour:
   m_Name: Repeat
   m_EditorClassIdentifier: 
   state: 0
-  started: 0
+  started: 1
   guid: 0538c28b11934374486cd873389bfa7d
   position: {x: 183.00002, y: 156.833}
   blackboard:
