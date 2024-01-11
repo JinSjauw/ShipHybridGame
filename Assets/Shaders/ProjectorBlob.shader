@@ -3,60 +3,37 @@
 Shader "Unlit/ProjectorBlob"
 {
     Properties {
-		_ShadowTex ("Cookie", 2D) = "gray" {}
-		_FalloffTex ("FallOff", 2D) = "white" {}
-	}
-	Subshader {
-		Tags {"Queue"="Transparent"}
-		Pass {
-			ZWrite Off
-			ColorMask RGB
-			Blend DstColor Zero
-			Offset -1, -1
+    _Color ("Main Color", Color) = (1,1,1,1)
+    _MainTex ("Base (RGB)", 2D) = "white" {}
+    _DecalTex ("Decal (RGBA)", 2D) = "black" {}
+    }
 
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-			#pragma multi_compile_fog
-			#include "UnityCG.cginc"
-			
-			struct vertex_out {
-				float4 uvShadow : TEXCOORD0;
-				float4 uvFalloff : TEXCOORD1;
-				UNITY_FOG_COORDS(2) // TEXCOORD2
-				float4 pos : SV_POSITION;
-				float intensity : TEXCOORD3; // additional intensity, based on normal orientation
-			};
-			
-			float4x4 unity_Projector;
-			float4x4 unity_ProjectorClip;
-			
-			vertex_out vert (float4 vertex : POSITION, float3 normal : NORMAL)
-			{
-				vertex_out o;
-				o.intensity = sign(dot(float3(0.0, 1.0, 0.0), UnityObjectToWorldNormal(normal))); // 1.0 if pointing UP
-				o.pos = UnityObjectToClipPos (vertex);
-				o.uvShadow = mul (unity_Projector, vertex);
-				o.uvFalloff = mul (unity_ProjectorClip, vertex);
-				UNITY_TRANSFER_FOG(o,o.pos);
-				return o;
-			}
-			
-			sampler2D _ShadowTex;
-			sampler2D _FalloffTex;
-			
-			fixed4 frag (vertex_out i) : SV_Target
-			{
-				fixed4 texS = tex2Dproj (_ShadowTex, UNITY_PROJ_COORD(i.uvShadow));
-				texS.a = 1.0-texS.a;
+    SubShader {
+        Tags { "RenderType"="Opaque" }
+        LOD 250
 
-				fixed4 texF = tex2Dproj (_FalloffTex, UNITY_PROJ_COORD(i.uvFalloff));
-				fixed4 res = lerp(fixed4(1,1,1,0), texS, texF.a * i.intensity);
+    CGPROGRAM
+    #pragma surface surf Lambert
 
-				UNITY_APPLY_FOG_COLOR(i.fogCoord, res, fixed4(1,1,1,1));
-				return res;
-			}
-			ENDCG
-		}
-	}
+    sampler2D _MainTex;
+    sampler2D _DecalTex;
+    fixed4 _Color;
+
+    struct Input {
+        float2 uv_MainTex;
+        float2 uv_DecalTex;
+    };
+
+    void surf (Input IN, inout SurfaceOutput o) {
+        fixed4 c = tex2D(_MainTex, IN.uv_MainTex);
+        half4 decal = tex2D(_DecalTex, IN.uv_DecalTex);
+        c.rgb = lerp (c.rgb, decal.rgb, decal.a);
+        c *= _Color;
+        o.Albedo = c.rgb;
+        o.Alpha = c.a;
+    }
+    ENDCG
+    }
+
+Fallback "Legacy Shaders/Diffuse"
 }
