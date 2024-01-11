@@ -44,7 +44,7 @@ public class BoatController : MonoBehaviour
     [SerializeField] private float minEndDriftVelocity;
 
     private Rigidbody boatBody;
-
+    public Transform boneToRotate;
     private bool isMoving;
     private bool isTurning;
     private bool isDrifting;
@@ -76,17 +76,28 @@ public class BoatController : MonoBehaviour
         }
     }
 
+
+    void RotateBoneBasedOnValue(float rotationValue)
+    {
+        Quaternion rotation = Quaternion.Euler(rotationValue + 180, 0f, 0f);
+        boneToRotate.localRotation = rotation;
+    }
+
+
+
     // Update is called once per frame
     void FixedUpdate()
     {
         KeepUpright();
+
 
         //Debugging Forces
 
         //Debug.DrawRay(nose.transform.position, boatBody.velocity, Color.blue);
 
         DisplayParticles();
-
+        // visualises rudder rotation
+        RotateRudder();
         //Acceleration
         boatSpeed = Vector3.Dot(transform.forward, boatBody.velocity);
 
@@ -134,8 +145,16 @@ public class BoatController : MonoBehaviour
         {
             DrawArrow.ForDebug(nose.transform.position, boatBody.velocity.normalized * 3f * normalizedSpeed, Color.blue);
         }
+
+
     }
 
+    private void RotateRudder()
+    {
+        float normalizedRotation = Mathf.InverseLerp(-40, 40, turnAngle);
+        float remappedRotation = Mathf.Lerp(-90, 90, normalizedRotation);
+        RotateBoneBasedOnValue(remappedRotation);
+    }
     private void KeepUpright()
     {
         float offset = Mathf.Clamp01(1f - Vector3.Dot(Vector3.up, boatBody.transform.up));
@@ -165,8 +184,6 @@ public class BoatController : MonoBehaviour
         float velocity = SidewaysVelocity();
 
         float normalizedVelocity = Mathf.InverseLerp(7, 30, Mathf.Abs(velocity));
-
-        // Map the normalized value to the range [0.20, 1]
         float remappedVelocity = Mathf.Lerp(0.1f, 1f, normalizedVelocity);
 
         if (throttle != 0 && WaterCheck())
