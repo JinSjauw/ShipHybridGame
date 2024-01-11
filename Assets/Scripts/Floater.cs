@@ -8,7 +8,6 @@ public class Floater : MonoBehaviour
     [SerializeField] float displacementAmount = 3f;
     [SerializeField] private AnimationCurve dragCurve;
     [SerializeField] private AnimationCurve frictionCurve;
-    [SerializeField] private AnimationCurve driftingCurve;
     [SerializeField] [Range(0, .25f)]private float floaterMass = .2f;
 
     [SerializeField] private bool debugCurve;
@@ -17,9 +16,7 @@ public class Floater : MonoBehaviour
     
     private float frictionVelocity;
     private Vector3 steeringDir;
-    private bool isDrifting;
-    
-    
+
     private void FixedUpdate()
     {
         Vector3 floaterPosition = transform.position;
@@ -87,10 +84,5 @@ public class Floater : MonoBehaviour
     public void SetFrictionCurve(AnimationCurve curve)
     {
         frictionCurve.CopyFrom(curve);
-    }
-
-    public void UseDriftCurve(bool state)
-    {
-        isDrifting = state;
     }
 }
