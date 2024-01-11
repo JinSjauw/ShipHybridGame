@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody))]
 public class BoatController : MonoBehaviour
 {
-    [Header("Boat References")] 
+    [Header("Boat Physics References")] 
     [SerializeField] private Transform engineTransform;
     [SerializeField] private List<Transform> steeringPoints;
     [SerializeField] private List<Transform> accelerationPoints;
@@ -26,13 +26,20 @@ public class BoatController : MonoBehaviour
     [Header("Boat Steering")]
     [SerializeField] private float turnSpeed;
     [SerializeField] private float maxTurnAngle = 40;
-    [SerializeField] private AnimationCurve frontDragCurve;
-    [SerializeField] private AnimationCurve backDragCurve;
+    [SerializeField] private AnimationCurve dragCurve;
+    [SerializeField] private AnimationCurve frictionCurve;
 
     [Header("Boat Buoyancy")] 
     [SerializeField] private float springStrength;
     [SerializeField] private float damperStrength;
-    
+
+    [Header("Boat VFX")]
+    [SerializeField] private ParticleSystem leftDriftParticle;
+    [SerializeField] private ParticleSystem rightDriftParticle;
+    [SerializeField] private ParticleSystem wakeParticle;
+    [SerializeField] private float minStartDriftVelocity;
+    [SerializeField] private float minEndDriftVelocity;
+
     private Rigidbody boatBody;
     
     private bool isMoving;
@@ -53,15 +60,15 @@ public class BoatController : MonoBehaviour
 
         foreach (Floater floater in floaters)
         {
-            floater.SetDragCurve(frontDragCurve);
-            floater.SetFrictionCurve(frontDragCurve);
+            //floater.SetDragCurve(backDragCurve);
+            floater.SetDragCurve(dragCurve);
         }
 
         foreach (Transform accelPoint in accelerationPoints)
         {
             if (accelPoint.TryGetComponent(out Floater floater))
             {
-                floater.SetFrictionCurve(backDragCurve);
+                floater.SetFrictionCurve(frictionCurve);
             }
         }
     }
@@ -75,7 +82,11 @@ public class BoatController : MonoBehaviour
         
         //Debug.DrawRay(nose.transform.position, boatBody.velocity, Color.blue);
 
+        DisplayParticles();
+        
+        //Acceleration
         boatSpeed = Vector3.Dot(transform.forward, boatBody.velocity);
+        
         normalizedSpeed = Mathf.Clamp01(Mathf.Abs(boatSpeed / boatTopSpeed));
         
         if (throttle != 0 && WaterCheck())
@@ -90,47 +101,29 @@ public class BoatController : MonoBehaviour
             foreach (Transform point in accelerationPoints)
             {
                 Vector3 accelDirection = point.forward;
-                /*if (isDrifing)
-                {
-                    accelDirection = Quaternion.AngleAxis(turnAngle * turnRate, Vector3.up) * accelDirection;
-                }*/
                 accelDirection.y = 0;
-                /*Debug.Log("BoatSpeed " + boatSpeed + " Normalized Speed: " + normalizedSpeed);
-                Debug.Log("Acceleration: " + availablePower);*/
-                boatBody.AddForceAtPosition(accelDirection * availablePower * 10f, point.position);
-                DrawArrow.ForDebug(nose.position, accelDirection * availablePower * 10f, Color.yellow);
+                Vector3 forwardForce = accelDirection * availablePower * 10f;
+                boatBody.AddForceAtPosition(forwardForce , point.position);
+                DrawArrow.ForDebug(point.position, accelDirection * availablePower, Color.yellow);
             }
+            
+            /*Vector3 forwardForce = transform.forward * availablePower * 10f;
+            boatBody.AddForce(forwardForce);*/
         }
         
         if (isTurning)
         {
-            foreach (Transform point in steeringPoints)
+            //Applies torque;
+            if (Mathf.Abs(turnAngle + turnRate) < maxTurnAngle)
             {
-                if (Mathf.Abs(turnAngle + turnRate) < maxTurnAngle)
-                {
-                    float angleChange = turnRate * turnSpeed * Time.fixedDeltaTime;
-                    turnAngle += angleChange;
-                    turnAngle = Mathf.Clamp(turnAngle, -maxTurnAngle, maxTurnAngle);
-                    point.localRotation = Quaternion.Euler(0, turnAngle, 0);
-                }
-            }
-        }
-
-        if (isDrifting)
-        {
-            float force = boatBody.mass * 35f;
-            float torque = boatBody.mass * turnAngle;
-            //boatBody.AddTorque(transform.up * torque * turnRate);
-            //boatBody.AddForce(boatBody.transform.right * force);
-            
-            foreach (Floater floater in floaters)
-            {
-                floater.UseDriftCurve(true);
-            }
-            
-            if (showForces)
-            {
-                DrawArrow.ForDebug(transform.position, boatBody.transform.right * force * .3f, Color.magenta);
+                float angleChange = turnRate * turnSpeed * Time.fixedDeltaTime;
+                turnAngle += angleChange;
+                turnAngle = Mathf.Clamp(turnAngle, -maxTurnAngle, maxTurnAngle);
+                
+                Vector3 angularVelocity = new Vector3(0, turnAngle, 0);
+                //Quaternion deltaRotation = Quaternion.Euler(turnSpeed * angularVelocity * Time.fixedDeltaTime);
+                
+                boatBody.angularVelocity = (turnSpeed * angularVelocity) * normalizedSpeed;
             }
         }
         
@@ -161,6 +154,59 @@ public class BoatController : MonoBehaviour
         }
         
         return false;
+    }
+
+    private void DisplayParticles()
+    {
+        //Debug.Log("Sidewards Velocity: " + Vector3.Dot(boatBody.velocity, transform.right));
+        float velocity = SidewaysVelocity();
+        
+        if (throttle != 0 && WaterCheck())
+        {
+            if (!wakeParticle.isPlaying)
+            {
+                wakeParticle.Play();
+            }
+
+            if (Mathf.Abs(velocity) > minStartDriftVelocity)
+            {
+                switch (velocity)
+                {
+                    case > 0:
+                        rightDriftParticle.Play();
+                        break;
+                    case < 0:
+                        leftDriftParticle.Play();
+                        break;
+                }
+
+                isDrifting = true;
+            }
+        }
+        else
+        {
+            wakeParticle.Stop();
+        }
+        
+        if(Mathf.Abs(velocity) <= minEndDriftVelocity)
+        {
+            if (rightDriftParticle.isPlaying)
+            {
+                rightDriftParticle.Stop();
+            }
+
+            if (leftDriftParticle.isPlaying)
+            {
+                leftDriftParticle.Stop();
+            }
+
+            isDrifting = false;
+        }
+    }
+
+    private float SidewaysVelocity()
+    {
+        return Vector3.Dot(boatBody.velocity, transform.right);
     }
     
     public void OnThrust(InputAction.CallbackContext context)
@@ -202,15 +248,17 @@ public class BoatController : MonoBehaviour
         if (context.canceled)
         {
             turnRate = 0;
+            turnAngle = 0;
             isTurning = false;
-            if (!isDrifting)
+
+            /*if (!isDrifting)
             {
                 turnAngle = 0;
                 foreach (Transform point in steeringPoints)
                 {
                     point.localRotation = Quaternion.Euler(0,0,0);
                 }
-            }
+            }*/
         }
     }
 
@@ -223,7 +271,7 @@ public class BoatController : MonoBehaviour
         //Apply a force to the side of the rigidbody (depending on steering input)
         //In addition to the forward force
 
-        if (context.started)
+        /*if (context.started)
         {
             isDrifting = true;
         }
@@ -240,6 +288,6 @@ public class BoatController : MonoBehaviour
             {
                 point.localRotation = Quaternion.Euler(0,0,0);
             }
-        }
+        }*/
     }
 }

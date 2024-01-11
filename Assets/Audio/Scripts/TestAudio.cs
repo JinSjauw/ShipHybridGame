@@ -15,7 +15,7 @@ public class TestAudio : MonoBehaviour
             switch (context.ReadValue<float>())
             {
                 case 1:
-                    audioController.PlayAudio(AudioID.ST_MUSIC, false, 1.0f);
+                    audioController.PlayAudio(AudioID.ST_MUSIC, true, 1.0f);
                     break;
                 case -1:
                     audioController.RestartAudio(AudioID.ST_MUSIC, true, .5f);
