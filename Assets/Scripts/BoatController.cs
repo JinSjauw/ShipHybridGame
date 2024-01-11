@@ -106,9 +106,6 @@ public class BoatController : MonoBehaviour
                 boatBody.AddForceAtPosition(forwardForce , point.position);
                 DrawArrow.ForDebug(point.position, accelDirection * availablePower, Color.yellow);
             }
-            
-            /*Vector3 forwardForce = transform.forward * availablePower * 10f;
-            boatBody.AddForce(forwardForce);*/
         }
         
         if (isTurning)
@@ -213,9 +210,7 @@ public class BoatController : MonoBehaviour
     {
         if (context.performed)
         {
-            //Debug.Log("Moving: " + context.ReadValue<Vector2>());
             throttle = context.ReadValue<float>();
-            //boatBody.AddForce(context.ReadValue<float>() * boatBody.transform.right * moveSpeed, ForceMode.Acceleration);
         }
 
         if (context.canceled)
@@ -250,44 +245,6 @@ public class BoatController : MonoBehaviour
             turnRate = 0;
             turnAngle = 0;
             isTurning = false;
-
-            /*if (!isDrifting)
-            {
-                turnAngle = 0;
-                foreach (Transform point in steeringPoints)
-                {
-                    point.localRotation = Quaternion.Euler(0,0,0);
-                }
-            }*/
         }
-    }
-
-    public void OnDrift(InputAction.CallbackContext context)
-    {
-        //Check the steering input and acceleration.
-        
-        //#Core points for drifting
-        
-        //Apply a force to the side of the rigidbody (depending on steering input)
-        //In addition to the forward force
-
-        /*if (context.started)
-        {
-            isDrifting = true;
-        }
-
-        if (context.canceled)
-        {
-            isDrifting = false;
-            foreach (Floater floater in floaters)
-            {
-                floater.UseDriftCurve(false);
-            }
-            turnAngle = 0;
-            foreach (Transform point in steeringPoints)
-            {
-                point.localRotation = Quaternion.Euler(0,0,0);
-            }
-        }*/
     }
 }
