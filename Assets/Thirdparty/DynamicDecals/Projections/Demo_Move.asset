@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5f969f960bef8449fee2204a37e5a3, type: 3}
+  m_Name: Demo_Move
+  m_EditorClassIdentifier: 
+  type: 0
+  instanced: 0
+  forceForward: 0
+  priority: 0
+  transparencyType: 0
+  cutoff: 0.5
+  tiling: {x: 0, y: 0}
+  offset: {x: 0, y: 0}
+  maskMethod: 0
+  masks: 00000000
+  projectionLimit: 80
+  _Cutoff: 134
+  _TilingOffset: 348
+  _MaskBase: 346
+  _MaskLayers: 347
+  albedo:
+    texture: {fileID: 2800000, guid: ead84f65253041048861cfbad00e770e, type: 3}
+    color: {r: 1, g: 0.051886797, b: 0.16951123, a: 1}
+    _MainTex: 15
+    _Color: 79
+  metallic:
+    texture: {fileID: 2800000, guid: b66c2383353dc7d46a137424b18f24ee, type: 3}
+    metallicity: 0.755
+    glossiness: 0.73
+    _MetallicGlossMap: 294
+    _Metallic: 293
+    _Glossiness: 290
+  normal:
+    texture: {fileID: 0}
+    strength: 1
+    _BumpMap: 195
+    _BumpScale: 300
+  emissive:
+    texture: {fileID: 0}
+    color: {r: 1, g: 0.13333344, b: 0, a: 1}
+    intensity: 0.88
+    _EmissionMap: 314
+    _EmissionColor: 67
