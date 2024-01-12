@@ -269,6 +269,7 @@ public class BoatController : MonoBehaviour
 
     public void SetThrust(float thrustValue)
     {
+        //Max thrust speed;
         float maxThrustValue = 90;
         if (thrustValue < 0)
         {

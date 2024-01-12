@@ -59,6 +59,7 @@ public class ArduinoReader : MonoBehaviour
             
             if (Int32.TryParse(data[0], out int turnRate))
             {
+                //Max turnAngle is set here
                 if (Mathf.Abs(turnAngle + turnRate) < 25)
                 {
                     turnAngle += turnRate;
