@@ -50,6 +50,7 @@ public class BoatController : MonoBehaviour
     private bool isDrifting;
 
     private float throttle;
+    private float thrust;
     private float boatSpeed;
     private float normalizedSpeed;
 
@@ -92,14 +93,14 @@ public class BoatController : MonoBehaviour
 
         normalizedSpeed = Mathf.Clamp01(Mathf.Abs(boatSpeed / boatTopSpeed));
 
-        if (throttle != 0 && WaterCheck())
+        if (thrust > 0 && WaterCheck())
         {
             if (normalizedSpeed >= .99f)
             {
                 return;
             }
-
-            float availablePower = powerCurve.Evaluate(normalizedSpeed) * throttle * boatBody.mass;
+            
+            float availablePower = powerCurve.Evaluate(normalizedSpeed) * thrust * boatBody.mass;
 
             foreach (Transform point in accelerationPoints)
             {
@@ -114,7 +115,34 @@ public class BoatController : MonoBehaviour
             boatBody.AddForce(forwardForce);*/
         }
 
-        if (isTurning)
+            
+        /*if (throttle != 0 && WaterCheck())
+        {
+            if (normalizedSpeed >= .99f)
+            {
+                return;
+            }
+            
+            float availablePower = powerCurve.Evaluate(normalizedSpeed) * throttle * boatBody.mass;
+
+            foreach (Transform point in accelerationPoints)
+            {
+                Vector3 accelDirection = point.forward;
+                accelDirection.y = 0;
+                Vector3 forwardForce = accelDirection * availablePower * 10f;
+                boatBody.AddForceAtPosition(forwardForce, point.position);
+                DrawArrow.ForDebug(point.position, accelDirection * availablePower, Color.yellow);
+            }
+
+            /*Vector3 forwardForce = transform.forward * availablePower * 10f;
+            boatBody.AddForce(forwardForce);#1#
+        }
+        */
+        
+        Vector3 angularVelocity = new Vector3(0, turnAngle, 0);
+        boatBody.angularVelocity = (turnSpeed * angularVelocity) * normalizedSpeed;
+
+        /*if (isTurning)
         {
             //Applies torque;
             if (Mathf.Abs(turnAngle + turnRate) < maxTurnAngle)
@@ -128,7 +156,7 @@ public class BoatController : MonoBehaviour
 
                 boatBody.angularVelocity = (turnSpeed * angularVelocity) * normalizedSpeed;
             }
-        }
+        }*/
 
         if (showForces)
         {
@@ -169,7 +197,7 @@ public class BoatController : MonoBehaviour
         // Map the normalized value to the range [0.20, 1]
         float remappedVelocity = Mathf.Lerp(0.1f, 1f, normalizedVelocity);
 
-        if (throttle != 0 && WaterCheck())
+        if (thrust > 0 && WaterCheck())
         {
             if (!wakeParticle.isPlaying)
             {
@@ -234,6 +262,23 @@ public class BoatController : MonoBehaviour
         }
     }
 
+    public void SetTurnAngle(float turnValue)
+    {
+        turnAngle = -turnValue * 0.4f;
+    }
+
+    public void SetThrust(float thrustValue)
+    {
+        float maxThrustValue = 90;
+        if (thrustValue < 0)
+        {
+            thrustValue = 0;
+        }
+
+        thrust = thrustValue / maxThrustValue;
+        Debug.Log("Thrust: " + thrust);
+    }
+    
     public void OnSteer(InputAction.CallbackContext context)
     {
         if (context.started)
