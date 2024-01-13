@@ -1,50 +1,49 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using System.IO.Ports;
 using System.Threading;
 using TMPro;
 
-
 public class ArduinoReader : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI label;
-    [SerializeField] private BoatController boatController;
+    //[SerializeField] private BoatController boatController;
     
     private SerialPort stream = new SerialPort("COM3", 9600);
     
     private Thread thread;
-
+    private bool isRunning = false;
+    
     private string receivedString;
     private string[] data;
     private int turnAngle;
-    private int thrust;
+    private float thrust;
+
+    private float maxTurnAngle = 25;
+    private float maxThrustValue = 90;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        //stream.Open();
-        StartThread();
-    }
+    #region Unity Functions
 
     // Update is called once per frame
     private void Update()
     {
+        if (!isRunning) return;
+        
         label.text = "Turn Angle: " + turnAngle + "\n" 
                      + "Thrust: " + thrust;
         
-        boatController.SetThrust(thrust);
-        boatController.SetTurnAngle(turnAngle);
+        /*boatController.SetThrust(thrust);
+        boatController.SetTurnAngle(turnAngle);*/
+    }
+    private void OnDisable()
+    {
+        stream.Close();
+        thread.Abort();
     }
 
-    public void StartThread ()
-    {
-        // Creates and starts the thread
-        thread = new Thread (ThreadLoop);
-        thread.Start();
-    }
-    
-    public void ThreadLoop ()
+    #endregion
+
+    private void ThreadLoop ()
     {
         stream.Open();
 
@@ -60,23 +59,58 @@ public class ArduinoReader : MonoBehaviour
             if (Int32.TryParse(data[0], out int turnRate))
             {
                 //Max turnAngle is set here
-                if (Mathf.Abs(turnAngle + turnRate) < 25)
+                if (Mathf.Abs(turnAngle + turnRate) < maxTurnAngle)
                 {
                     turnAngle += turnRate;
                 }
             }
             
-            if (Int32.TryParse(data[1], out int thrustPower))
+            if (float.TryParse(data[1], out float thrustValue))
             {
-                thrust = thrustPower;
+                if (thrustValue < 0)
+                {
+                    thrustValue = 0;
+                }
+
+                thrust = thrustValue / maxThrustValue;
             }
         
             //Debug.Log(data.Length);
         }
     }
-    
-    private void OnDisable()
+
+    public void Initialize(float turnAngleMax, float thrustValueMax)
     {
-        stream.Close();
+        maxTurnAngle = turnAngleMax;
+        maxThrustValue = thrustValueMax;
+    }
+    
+    public void StartThread()
+    {
+        // Creates and starts the thread
+        thread = new Thread (ThreadLoop);
+        thread.Start();
+        isRunning = true;
+    }
+
+    public void StopThread()
+    {
+        thread.Abort();
+        isRunning = false;
+    }
+
+    public bool IsRunning()
+    {
+        return isRunning;
+    }
+
+    public int GetTurnAngle()
+    {
+        return -turnAngle;
+    }
+
+    public float GetThrust()
+    {
+        return thrust;
     }
 }
