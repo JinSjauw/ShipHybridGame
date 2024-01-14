@@ -24,6 +24,11 @@ public class ArduinoReader : MonoBehaviour
     
     #region Unity Functions
 
+    private void Awake()
+    {
+        thread = new Thread (ThreadLoop);
+    }
+
     // Update is called once per frame
     private void Update()
     {
@@ -88,7 +93,6 @@ public class ArduinoReader : MonoBehaviour
     public void StartThread()
     {
         // Creates and starts the thread
-        thread = new Thread (ThreadLoop);
         thread.Start();
         isRunning = true;
     }
