@@ -56,6 +56,9 @@ public class BoatController : MonoBehaviour
     private float turnRate;
     private float turnAngle;
 
+    [Header("UI")]
+    public Transform wheel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,6 +101,7 @@ public class BoatController : MonoBehaviour
         DisplayParticles();
         // visualises rudder rotation
         RotateRudder();
+        Centerwheel();
         //Acceleration
         boatSpeed = Vector3.Dot(transform.forward, boatBody.velocity);
 
@@ -178,6 +182,12 @@ public class BoatController : MonoBehaviour
         return false;
     }
 
+    private void Centerwheel()
+    {
+        float normalizedRotation1 = Mathf.InverseLerp(-40, 40, turnAngle);
+        float remappedRotation1 = Mathf.Lerp(360, -360, normalizedRotation1);
+        wheel.transform.rotation = Quaternion.Euler(0f, 0f, remappedRotation1);
+    }
     private void DisplayParticles()
     {
         //Debug.Log("Sidewards Velocity: " + Vector3.Dot(boatBody.velocity, transform.right));
