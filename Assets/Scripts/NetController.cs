@@ -55,7 +55,7 @@ public class NetController : MonoBehaviour
         
         float targetValue = hookLowered ? neutralRotation : loweredRotation;
         targetRotation = Quaternion.AngleAxis(targetValue, Vector3.right);
-        targetRotation *= Quaternion.AngleAxis(-90, Vector3.forward);
+        //targetRotation *= Quaternion.AngleAxis(-90, Vector3.forward);
         fromRotation = hook.localRotation;
         
         rotatingHook = true;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +7,13 @@ using UnityEngine;
 public class RopeController : MonoBehaviour 
 {
     //Objects that will interact with the rope
-    [SerializeField] private Transform whatTheRopeIsConnectedTo;
-    [SerializeField] private Transform whatIsHangingFromTheRope;
+    [SerializeField] private Transform anchor;
+    [SerializeField] private Transform hanger;
+    [SerializeField] private Transform testSphere;
     [SerializeField] private int ropeLength = 5;
-
+    [SerializeField] private float ropeThickness = 0.075f;
+    
+    [SerializeField] private bool debug;
     //Line renderer used to display the rope
     private LineRenderer lineRenderer;
 
@@ -17,15 +21,17 @@ public class RopeController : MonoBehaviour
     private List<RopeSection> allRopeSections = new List<RopeSection>();
 
     //Rope data
-    private float ropeSectionLength = 0.5f;
+    private float ropeSectionLength = 0.3f;
 
     private void Start() 
 	{
         //Init the line renderer we use to display the rope
         lineRenderer = GetComponent<LineRenderer>();
+        /*lineRenderer.startWidth = 0.05f;
+        lineRenderer.endWidth = 0.05f;*/
         
         //Create the rope
-        Vector3 ropeSectionPos = whatTheRopeIsConnectedTo.position;
+        Vector3 ropeSectionPos = anchor.position;
 
         for (int i = 0; i < ropeLength; i++)
         {
@@ -34,17 +40,17 @@ public class RopeController : MonoBehaviour
             ropeSectionPos.y -= ropeSectionLength;
         }
     }
-	
-	private void Update() 
-	{
-        //Display the rope with the line renderer
+
+    private void Update()
+    {
         DisplayRope();
 
+        testSphere.position = allRopeSections[0].pos;
         //Move what is hanging from the rope to the end of the rope
-        whatIsHangingFromTheRope.position = allRopeSections[allRopeSections.Count - 1].pos;
+        hanger.position = allRopeSections[allRopeSections.Count - 1].pos;
 
         //Make what's hanging from the rope look at the next to last rope position to make it rotate with the rope
-        whatIsHangingFromTheRope.LookAt(allRopeSections[allRopeSections.Count - 2].pos);
+        hanger.LookAt(allRopeSections[allRopeSections.Count - 2].pos);
     }
 
     private void FixedUpdate()
@@ -62,24 +68,26 @@ public class RopeController : MonoBehaviour
         //Move the first section to what the rope is hanging from
         RopeSection firstRopeSection = allRopeSections[0];
 
-        firstRopeSection.pos = whatTheRopeIsConnectedTo.position;
+        firstRopeSection.pos = anchor.position;
 
+        Log("First Rope Section: " + firstRopeSection.pos);
+        Log("Anchor Position: " + anchor.position);
+        
         allRopeSections[0] = firstRopeSection;
-
-
+        
         //Move the other rope sections with Verlet integration
-        for (int i = 1; i < allRopeSections.Count; i++)
+        for (int i = 0; i < allRopeSections.Count; i++)
         {
             RopeSection currentRopeSection = allRopeSections[i];
 
             //Calculate velocity this update
-            Vector3 vel = currentRopeSection.pos - currentRopeSection.oldPos;
+            //Vector3 vel = currentRopeSection.pos - currentRopeSection.oldPos;
 
             //Update the old position with the current position
             currentRopeSection.oldPos = currentRopeSection.pos;
 
             //Find the new position
-            currentRopeSection.pos += vel;
+            //currentRopeSection.pos += vel;
 
             //Add gravity
             currentRopeSection.pos += gravityVec * t;
@@ -88,9 +96,8 @@ public class RopeController : MonoBehaviour
             allRopeSections[i] = currentRopeSection;
         }
 
-
         //Make sure the rope sections have the correct lengths
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < ropeLength; i++)
         {
             ImplementMaximumStretch();
         }
@@ -128,8 +135,7 @@ public class RopeController : MonoBehaviour
             {
                 continue;
             }
-
-
+            
             Vector3 change = changeDir * distError;
 
             if (i != 0)
@@ -155,24 +161,32 @@ public class RopeController : MonoBehaviour
     //Display the rope with a line renderer
     private void DisplayRope()
     {
-        float ropeWidth = 0.2f;
+        float ropeWidth = ropeThickness;
 
         lineRenderer.startWidth = ropeWidth;
         lineRenderer.endWidth = ropeWidth;
 
         //An array with all rope section positions
         Vector3[] positions = new Vector3[allRopeSections.Count];
-
-        for (int i = 0; i < allRopeSections.Count; i++)
+        positions[0] = anchor.position;
+        for (int i = 1; i < allRopeSections.Count; i++)
         {
             positions[i] = allRopeSections[i].pos;
         }
+        
+        Log("TopSection: " + positions[0]);
 
         lineRenderer.positionCount = positions.Length;
 
         lineRenderer.SetPositions(positions);
     }
 
+    private void Log(string _msg)
+    {
+        if (!debug) return;
+        Debug.Log("[RopeController]: " + _msg);
+    }
+    
     //A struct that will hold information about each rope section
     public struct RopeSection
     {

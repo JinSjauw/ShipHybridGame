@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class FollowAnchor : MonoBehaviour
 {
+    [SerializeField] private bool simpleFollow;
+    
     [SerializeField] private Transform anchorBody;
     [SerializeField] private Rigidbody ballBody;
     
@@ -23,6 +25,13 @@ public class FollowAnchor : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if (simpleFollow)
+        {
+            transform.position = anchorBody.position;
+            return;
+        }
+        
         targetPosition = anchorBody.position;
         targetPosition.y += yOffset;
         
