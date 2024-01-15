@@ -13,9 +13,11 @@ public class UI : MonoBehaviour
     }
 
     // Update is called once per frame
+    public float rotationSpeed = 45f;
+
     void Update()
     {
-        Debug.Log("Update is called!");
-        wheel.transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+        // Rotate the object continuously around the Y-axis
+        wheel.transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
     }
 }
