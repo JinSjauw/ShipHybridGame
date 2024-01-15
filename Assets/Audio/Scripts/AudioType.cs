@@ -9,5 +9,6 @@
         WATERSOUNDS,
         BOATSOUNDS,
         Hallo,
+        DRIFTSOUNDS,
     }
 }
