@@ -10,7 +10,9 @@ public class ArduinoReader : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI label;
     [SerializeField] private BoatController boatController;
-    
+    [SerializeField] private BoatEngineSounds boatEngineSounds;
+
+
     private SerialPort stream = new SerialPort("COM3", 9600);
     
     private Thread thread;
@@ -32,9 +34,11 @@ public class ArduinoReader : MonoBehaviour
     {
         label.text = "Turn Angle: " + turnAngle + "\n" 
                      + "Thrust: " + thrust;
-        
+
+      
         boatController.SetThrust(thrust);
         boatController.SetTurnAngle(turnAngle);
+        boatEngineSounds.thrustBellSound(thrust);
     }
 
     public void StartThread ()

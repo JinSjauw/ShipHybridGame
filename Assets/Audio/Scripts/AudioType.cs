@@ -6,8 +6,9 @@
         SFX_ENGINE,
         SFX_WATERSPLASH,
         ST_MUSIC,
-        BOATSOUND,
         WATERSOUNDS,
-
+        BOATSOUNDS,
+        Hallo,
+        DRIFTSOUNDS,
     }
 }

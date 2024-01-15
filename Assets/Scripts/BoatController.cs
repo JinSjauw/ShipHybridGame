@@ -220,7 +220,7 @@ public class BoatController : MonoBehaviour
                         break;
                 }
 
-                audioController.PlayAudio(Audio.AudioID.BOATSOUND);
+              //  audioController.PlayAudio(Audio.AudioID.BOATSOUND);
                 isDrifting = true;
             }
         }
@@ -240,7 +240,7 @@ public class BoatController : MonoBehaviour
             {
                 leftDriftParticle.Stop();
             }
-            audioController.StopAudio(Audio.AudioID.BOATSOUND);
+        //    audioController.StopAudio(Audio.AudioID.BOATSOUND);
             isDrifting = false;
         }
     }
@@ -280,7 +280,7 @@ public class BoatController : MonoBehaviour
         }
 
         thrust = thrustValue / maxThrustValue;
-        Debug.Log("Thrust: " + thrust);
+        //Debug.Log("Thrust: " + thrust);
     }
     
     public void OnSteer(InputAction.CallbackContext context)
