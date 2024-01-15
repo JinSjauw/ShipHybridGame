@@ -7,6 +7,8 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody))]
 public class BoatController : MonoBehaviour
 {
+    [SerializeField] private AudioController audioController;
+
     [Header("Boat Physics References")]
 
     [SerializeField] private Transform engineTransform;
@@ -218,6 +220,7 @@ public class BoatController : MonoBehaviour
                         break;
                 }
 
+                audioController.PlayAudio(Audio.AudioID.BOATSOUND);
                 isDrifting = true;
             }
         }
@@ -237,7 +240,7 @@ public class BoatController : MonoBehaviour
             {
                 leftDriftParticle.Stop();
             }
-
+            audioController.StopAudio(Audio.AudioID.BOATSOUND);
             isDrifting = false;
         }
     }
