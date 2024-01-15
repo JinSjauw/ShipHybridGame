@@ -45,6 +45,9 @@ public class BoatController : MonoBehaviour
     [SerializeField] private float minStartDriftVelocity;
     [SerializeField] private float minEndDriftVelocity;
 
+    [Header("Net Controller")] 
+    [SerializeField] private NetController netController;
+
     private Rigidbody boatBody;
 
     private bool isMoving;
@@ -59,13 +62,16 @@ public class BoatController : MonoBehaviour
     private float turnRate;
     private float turnAngle;
 
+    private bool debug;
+
+    #region Unity Functions
+
     private void Awake()
     {
         arduinoReader = GetComponent<ArduinoReader>();
         boatBody = GetComponent<Rigidbody>();
     }
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         foreach (Floater floater in floaters)
@@ -88,8 +94,7 @@ public class BoatController : MonoBehaviour
             arduinoReader.StartThread();
         }
     }
-
-    // Update is called once per frame
+    
     void FixedUpdate()
     {
         if (!useArduino && arduinoReader.IsRunning())
@@ -110,6 +115,57 @@ public class BoatController : MonoBehaviour
             DrawArrow.ForDebug(nose.transform.position, boatBody.velocity.normalized * 3f * normalizedSpeed, Color.blue);
         }
     }
+    #endregion
+
+    #region Unity Input Callbacks
+
+    public void OnThrust(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            throttle = context.ReadValue<float>();
+        }
+
+        if (context.canceled)
+        {
+            throttle = 0;
+        }
+    }
+    public void OnSteer(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            turnRate = context.ReadValue<float>();
+            if (turnRate != 0)
+            {
+                isTurning = true;
+
+                if (isDrifting)
+                {
+                    turnAngle = 0;
+                }
+            }
+        }
+
+        if (context.canceled)
+        {
+            turnRate = 0;
+            turnAngle = 0;
+            isTurning = false;
+        }
+    }
+
+    public void OnFishing(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            netController.ActuateHook();
+        }
+    }
+
+    #endregion
+    
+    #region Private Functions
 
     private void HandleInput()
     {
@@ -157,9 +213,7 @@ public class BoatController : MonoBehaviour
             Vector3 angularVelocity = new Vector3(0, arduinoReader.GetTurnAngle(), 0);
             boatBody.angularVelocity = (turnSpeed * angularVelocity) * normalizedSpeed;
         }
-        
     }
-
     private void KeepUpright()
     {
         float offset = Mathf.Clamp01(1f - Vector3.Dot(Vector3.up, boatBody.transform.up));
@@ -169,7 +223,6 @@ public class BoatController : MonoBehaviour
 
         boatBody.AddTorque(springTorque - dampTorque);
     }
-
     private bool WaterCheck()
     {
         Vector3 enginePosition = engineTransform.position;
@@ -177,10 +230,8 @@ public class BoatController : MonoBehaviour
         {
             return true;
         }
-
         return false;
     }
-
     private void DisplayParticles()
     {
         float velocity = SidewaysVelocity();
@@ -211,7 +262,6 @@ public class BoatController : MonoBehaviour
                         leftDriftParticle.startSize = remappedVelocity;
                         break;
                 }
-
                 isDrifting = true;
             }
         }
@@ -219,22 +269,29 @@ public class BoatController : MonoBehaviour
         {
             wakeParticle.Stop();
         }
-
         if (Mathf.Abs(velocity) <= minEndDriftVelocity)
         {
             if (rightDriftParticle.isPlaying)
             {
                 rightDriftParticle.Stop();
             }
-
             if (leftDriftParticle.isPlaying)
             {
                 leftDriftParticle.Stop();
             }
-
             isDrifting = false;
         }
     }
+
+    private void Log(string _msg)
+    {
+        if (!debug) return;
+        Debug.Log("[BoatController]: " + _msg);
+    }
+    
+    #endregion
+    
+    #region Public Functions
 
     private float SidewaysVelocity()
     {
@@ -259,40 +316,12 @@ public class BoatController : MonoBehaviour
 
         thrust = thrustValue;
     }
+
+    public NetController GetNetController()
+    {
+        return netController;
+    }
     
-    public void OnThrust(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            throttle = context.ReadValue<float>();
-        }
-
-        if (context.canceled)
-        {
-            throttle = 0;
-        }
-    }
-    public void OnSteer(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            turnRate = context.ReadValue<float>();
-            if (turnRate != 0)
-            {
-                isTurning = true;
-
-                if (isDrifting)
-                {
-                    turnAngle = 0;
-                }
-            }
-        }
-
-        if (context.canceled)
-        {
-            turnRate = 0;
-            turnAngle = 0;
-            isTurning = false;
-        }
-    }
+    #endregion
+    
 }
