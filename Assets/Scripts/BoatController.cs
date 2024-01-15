@@ -139,7 +139,7 @@ public class BoatController : MonoBehaviour
         }
         */
         
-        Vector3 angularVelocity = new Vector3(0, turnAngle, 0);
+        Vector3 angularVelocity = new Vector3(0, turnAngle/5, 0);
         boatBody.angularVelocity = (turnSpeed * angularVelocity) * normalizedSpeed;
 
         /*if (isTurning)
