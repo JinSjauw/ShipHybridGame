@@ -7,5 +7,6 @@
         SFX_WATERSPLASH,
         ST_MUSIC,
         WATERSOUNDS,
+        BOATSOUNDS,
     }
 }
