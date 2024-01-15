@@ -8,5 +8,6 @@
         ST_MUSIC,
         WATERSOUNDS,
         BOATSOUNDS,
+        Hallo,
     }
 }
