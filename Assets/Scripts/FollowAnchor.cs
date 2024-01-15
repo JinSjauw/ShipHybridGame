@@ -36,11 +36,6 @@ public class FollowAnchor : MonoBehaviour
         targetPosition.y += yOffset;
         
         Follow();
-        
-        /*if (Vector3.Distance(targetPosition, transform.position) > maxDistance)
-        {
-            Follow();
-        }*/
     }
 
     private void Follow()

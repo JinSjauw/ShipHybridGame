@@ -81,13 +81,13 @@ public class RopeController : MonoBehaviour
             RopeSection currentRopeSection = allRopeSections[i];
 
             //Calculate velocity this update
-            //Vector3 vel = currentRopeSection.pos - currentRopeSection.oldPos;
+            Vector3 vel = currentRopeSection.pos - currentRopeSection.oldPos;
 
             //Update the old position with the current position
             currentRopeSection.oldPos = currentRopeSection.pos;
 
             //Find the new position
-            //currentRopeSection.pos += vel;
+            currentRopeSection.pos += vel * .75f;
 
             //Add gravity
             currentRopeSection.pos += gravityVec * t;
@@ -200,7 +200,7 @@ public class RopeController : MonoBehaviour
         {
             this.pos = pos;
 
-            this.oldPos = pos;
+            this.oldPos = this.pos;
         }
     }
 }
