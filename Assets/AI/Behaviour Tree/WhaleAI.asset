@@ -188,7 +188,20 @@ MonoBehaviour:
   updateRotation: 1
   acceleration: 40
   tolerance: 1
-  depth: 0
+  diveCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  depthCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  depthOffset: 0
+  minDepth: 0
 --- !u!114 &-3476249357170077109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,6 +344,7 @@ MonoBehaviour:
   tolerance: 1
   stoppingDistance: 0.1
   acceleration: 50
+  targetDepthOffset: 2
 --- !u!114 &1548846280071506645
 MonoBehaviour:
   m_ObjectHideFlags: 0

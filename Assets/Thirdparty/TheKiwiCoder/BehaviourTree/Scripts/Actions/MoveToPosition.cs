@@ -57,6 +57,8 @@ public class MoveToPosition : ActionNode
 
         if (current >= 1) current = 0;
         
+        //context.animator.Play("SwimCycle");
+        
         //Move whale to acceptable depth range
         if (currentPosition.y > minDepth)
         {
