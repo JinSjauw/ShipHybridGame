@@ -14,14 +14,14 @@ public class BoatController : MonoBehaviour, IDamageable
     [SerializeField] private Transform nose;
     [SerializeField] private bool showForces;
 
-    [Header("Boat Locomotion")] 
-    
+    [Header("Boat Locomotion")]
+
     [Header("Arduino Parameters")]
-    [Header("Use Arduino")] [SerializeField] private bool useArduino;
+    [Header("Use Arduino")][SerializeField] private bool useArduino;
     [SerializeField] private float maxArduinoTurnAngle;
     [SerializeField] private float maxArduinoThrustValue;
     private ArduinoReader arduinoReader;
-    
+
     [Header("Boat Acceleration")]
     [SerializeField] private float boatTopSpeed;
     [SerializeField] private AnimationCurve powerCurve;
@@ -37,33 +37,33 @@ public class BoatController : MonoBehaviour, IDamageable
     [SerializeField] private float damperStrength;
 
     [Header("Boat VFX")]
-    
+
     [SerializeField] private ParticleSystem leftDriftParticle;
     [SerializeField] private ParticleSystem rightDriftParticle;
     [SerializeField] private ParticleSystem wakeParticle;
     [SerializeField] private float minStartDriftVelocity;
     [SerializeField] private float minEndDriftVelocity;
 
-    [Header("Auxiliary Controllers")] 
+    [Header("Auxiliary Controllers")]
     [SerializeField] private NetController netController;
     [SerializeField] private TurretController turretController;
-    
+
     private Rigidbody boatBody;
 
     private bool isMoving;
     private bool isTurning;
     private bool isDrifting;
 
-    private float throttle;
-    private float thrust;
-    private float boatSpeed;
+    [SerializeField] private float throttle;
+    [SerializeField] private float thrust;
+    [SerializeField] private float boatSpeed;
     private float normalizedSpeed;
 
     private float turnRate;
-    private float turnAngle;
+    [SerializeField] private float turnAngle;
 
     private int Health { get; set; }
-    
+
     private bool debug;
 
     #region Unity Functions
@@ -73,7 +73,7 @@ public class BoatController : MonoBehaviour, IDamageable
         arduinoReader = GetComponent<ArduinoReader>();
         boatBody = GetComponent<Rigidbody>();
     }
-    
+
     void Start()
     {
         foreach (Floater floater in floaters)
@@ -88,7 +88,7 @@ public class BoatController : MonoBehaviour, IDamageable
                 floater.SetFrictionCurve(frictionCurve);
             }
         }
-        
+
         //Initialize ArduinoReader;
         arduinoReader.Initialize(maxArduinoTurnAngle, maxArduinoThrustValue);
         if (useArduino && !arduinoReader.IsRunning())
@@ -96,18 +96,18 @@ public class BoatController : MonoBehaviour, IDamageable
             arduinoReader.StartThread();
         }
     }
-    
+
     void FixedUpdate()
     {
         if (!useArduino && arduinoReader.IsRunning())
         {
             arduinoReader.StopThread();
         }
-        else if(useArduino && !arduinoReader.IsRunning())
+        else if (useArduino && !arduinoReader.IsRunning())
         {
             arduinoReader.StartThread();
         }
-        
+
         KeepUpright();
         HandleInput();
         DisplayParticles();
@@ -166,23 +166,23 @@ public class BoatController : MonoBehaviour, IDamageable
     }
 
     #endregion
-    
+
     #region Private Functions
 
     private void HandleInput()
     {
         boatSpeed = Vector3.Dot(transform.forward, boatBody.velocity);
         normalizedSpeed = Mathf.Clamp01(Mathf.Abs(boatSpeed / boatTopSpeed));
-        
-        float thrustValue = useArduino ? arduinoReader.GetThrust() : throttle; 
-        
+
+        float thrustValue = useArduino ? arduinoReader.GetThrust() : throttle;
+
         if (thrustValue > 0 && WaterCheck())
         {
             if (normalizedSpeed >= .99f)
             {
                 return;
             }
-            
+
             float availablePower = powerCurve.Evaluate(normalizedSpeed) * thrustValue * boatBody.mass;
 
             foreach (Transform point in accelerationPoints)
@@ -194,7 +194,7 @@ public class BoatController : MonoBehaviour, IDamageable
                 DrawArrow.ForDebug(point.position, accelDirection * availablePower, Color.yellow);
             }
         }
-        
+
         if (isTurning && !useArduino)
         {
             //Applies torque;
@@ -241,9 +241,9 @@ public class BoatController : MonoBehaviour, IDamageable
 
         // Map the normalized value to the range [0.20, 1]
         float remappedVelocity = Mathf.Lerp(0.1f, 1f, normalizedVelocity);
-        
-        float thrustValue = useArduino ? thrust : throttle; 
-        
+
+        float thrustValue = useArduino ? thrust : throttle;
+
         if (thrustValue > 0 && WaterCheck())
         {
             if (!wakeParticle.isPlaying)
@@ -290,41 +290,41 @@ public class BoatController : MonoBehaviour, IDamageable
         if (!debug) return;
         Debug.Log("[BoatController]: " + _msg);
     }
-    
+
     #endregion
-    
+
     #region Public Functions
 
     private float SidewaysVelocity()
     {
         return Vector3.Dot(boatBody.velocity, transform.right);
     }
-    
+
     public NetController GetNetController()
     {
         return netController;
     }
-    
+
     #endregion
 
     #region IDamageable Functions
-    
-        public void TakeDamage(int damage)
-        {
-            Health -= damage;
-        }
 
-        public void SetHealth(int amount)
-        {
-            Health = amount;
-        }
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+    }
 
-        public void Die()
-        {
-            Log("Died!");
-        }
+    public void SetHealth(int amount)
+    {
+        Health = amount;
+    }
 
-        #endregion
+    public void Die()
+    {
+        Log("Died!");
+    }
+
+    #endregion
 
 
 }
