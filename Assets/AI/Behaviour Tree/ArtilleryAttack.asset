@@ -144,7 +144,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 1ba3cf86e212e704392a41d506e396f0
-  position: {x: 190.82655, y: 476.57565}
+  position: {x: 207.20001, y: 480.80008}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -217,7 +217,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 4d41b58f7f2712e418d06653ab8f45d1
-  position: {x: 375.62653, y: 476.57565}
+  position: {x: 391.59998, y: 481.24698}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -339,7 +339,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: faa7b5057432e694ca6e0aaffd91b3aa
-  position: {x: 316.42657, y: 347.77567}
+  position: {x: 317.59995, y: 347.19998}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}

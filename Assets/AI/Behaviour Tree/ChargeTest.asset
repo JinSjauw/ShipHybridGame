@@ -67,7 +67,7 @@ MonoBehaviour:
     PlayerTransform: {fileID: 0}
   description: 
   drawGizmos: 0
-  radius: 0
+  radius: 5
   playerCenter: 0
 --- !u!114 &-748112756597230492
 MonoBehaviour:
@@ -161,7 +161,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 0431583515bdf664c9d06080d87869f2
-  position: {x: 412.53995, y: 612.80005}
+  position: {x: 414.54898, y: 612.80005}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
