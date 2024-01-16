@@ -10,7 +10,6 @@ public class MoveToPosition : ActionNode
     public float tolerance = 1.0f;
 
     public AnimationCurve diveCurve;
-    public AnimationCurve depthCurve;
     public float depthOffset;
     public float minDepth;
     
