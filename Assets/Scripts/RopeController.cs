@@ -45,7 +45,7 @@ public class RopeController : MonoBehaviour
     {
         DisplayRope();
 
-        testSphere.position = allRopeSections[0].pos;
+        //testSphere.position = allRopeSections[0].pos;
         //Move what is hanging from the rope to the end of the rope
         hanger.position = allRopeSections[allRopeSections.Count - 1].pos;
 
@@ -70,8 +70,8 @@ public class RopeController : MonoBehaviour
 
         firstRopeSection.pos = anchor.position;
 
-        Log("First Rope Section: " + firstRopeSection.pos);
-        Log("Anchor Position: " + anchor.position);
+        //Log("First Rope Section: " + firstRopeSection.pos);
+        //Log("Anchor Position: " + anchor.position);
         
         allRopeSections[0] = firstRopeSection;
         
@@ -174,7 +174,7 @@ public class RopeController : MonoBehaviour
             positions[i] = allRopeSections[i].pos;
         }
         
-        Log("TopSection: " + positions[0]);
+        //Log("TopSection: " + positions[0]);
 
         lineRenderer.positionCount = positions.Length;
 
@@ -186,7 +186,19 @@ public class RopeController : MonoBehaviour
         if (!debug) return;
         Debug.Log("[RopeController]: " + _msg);
     }
-    
+
+    public Vector3 GetRopePosition(int index)
+    {
+        if (index > ropeLength)
+        {
+            Log("Index longer than ropeLength!");
+            index = ropeLength - 1;
+            return allRopeSections[index].pos;
+        }
+        
+        return allRopeSections[index].pos;
+    }
+
     //A struct that will hold information about each rope section
     public struct RopeSection
     {

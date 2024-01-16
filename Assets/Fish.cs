@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
-
-    public GameObject AllFish;
+    //public GameObject AllFish;
     // Start is called before the first frame update
     void Start()
     {
 
-        AllFish = GameObject.FindWithTag("AllFish");
+        //AllFish = GameObject.FindWithTag("AllFish");
      // Fishcount.GetComponent<FishSound>();
     }
 
@@ -22,13 +19,19 @@ public class Fish : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "BOAT")
+        //Debug.Log("[Fish]: Hit " + other.name + "!");
+        if(other.TryGetComponent(out BoatController boatController))
         {
-            AllFish.GetComponent<FishSound>().Score ++;
+            //Debug.Log("[Fish]: Hit with BoatController!");
+            NetController netController = boatController.GetNetController();
+            if (netController.IsHookLowered() && boatController.GetNetController().AddFish())
+            {
+                //Debug.Log("[Fish]: Fishing!");
+                Destroy(gameObject);   
+            }
+            /*AllFish.GetComponent<FishSound>().Score ++;
             AllFish.GetComponent<FishSound>().Fishcount++;
-            Destroy(gameObject);
-
-
+            Destroy(gameObject);*/
         }
     }
 }

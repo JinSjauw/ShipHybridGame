@@ -167,6 +167,14 @@ public class BoatController : MonoBehaviour, IDamageable
         }
     }
 
+    public void OnDropNet(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            netController.DropFishNet();
+        }
+    }
+
     #endregion
 
     #region Private Functions
