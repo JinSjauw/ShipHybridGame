@@ -38,7 +38,7 @@ public class MoveToPosition : ActionNode
         context.agent.speed = speed;
         
         context.agent.destination = targetPosition;
-        context.agent.autoBraking = false;
+        context.agent.autoBraking = true;
         context.agent.updateRotation = updateRotation;
         context.agent.acceleration = acceleration;
     }
