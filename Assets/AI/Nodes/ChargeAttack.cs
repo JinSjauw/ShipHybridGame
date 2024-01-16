@@ -9,8 +9,7 @@ public class ChargeAttack : ActionNode
     public float stoppingDistance = 0.1f;
     public float acceleration = 40.0f;
     public float targetDepthOffset = 2f;
-    
-    
+
     private Vector3 originPosition;
     private Vector3 targetPosition;
     private Vector2 origin2D;
@@ -69,9 +68,22 @@ public class ChargeAttack : ActionNode
         float depth = Mathf.Lerp(originPosition.y, WaveManager.Instance.FindPoint(target2D).y, depthCurve.Evaluate(normalizedDistance));
 
         context.whaleBody.position = new Vector3(currentPosition.x, depth + targetDepthOffset, currentPosition.z);
-        
-        /*context.whaleBody.position = new Vector3(currentPosition.x,
-            depthCurve.Evaluate(normalizedDistance) * targetPosition.y, currentPosition.z);*/
+
+        switch (normalizedDistance)
+        {
+            case > .85f:
+                Debug.Log("[ChargeAttack]: Charge End");
+                context.animator.Play("Charge_End");
+                break;
+            case > .25f:
+                Debug.Log("[ChargeAttack]: Charge Mid");
+                context.animator.Play("Charge_Loop");
+                break;
+            case < .25f:
+                Debug.Log("[ChargeAttack]: Charge Start");
+                context.animator.Play("Charge_Start");
+                break;
+        }
         
         if (context.agent.pathPending)
         {
@@ -80,7 +92,6 @@ public class ChargeAttack : ActionNode
 
         if (context.agent.remainingDistance < tolerance) 
         {
-            //context.whaleBody.position =  new Vector3(currentPosition.x, originPosition.y, currentPosition.z);
             return State.Success;
         }
 
