@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HarpoonCamera
   - BOAT
+  - AllFish
   layers:
   - Default
   - TransparentFX

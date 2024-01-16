@@ -11,6 +11,8 @@ public class Fish : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        Fishcount = GameObject.FindWithTag("AllFish");
      // Fishcount.GetComponent<FishSound>();
     }
 
