@@ -24,9 +24,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Drift",
+                    "name": "ActuateHook",
                     "type": "Button",
-                    "id": "aaa5c8a7-382f-4a3a-86ea-aacae22fb205",
+                    "id": "2e31bf44-83ae-42d0-978f-53fb2e40eb36",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -37,7 +37,7 @@
                 {
                     "name": "1D Axis",
                     "id": "a78cee12-0156-49dd-87e1-3d166fc3938d",
-                    "path": "1DAxis",
+                    "path": "1DAxis(minValue=0,whichSideWins=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -102,12 +102,12 @@
                 },
                 {
                     "name": "",
-                    "id": "24bafcab-723d-4981-9de8-e98df3de5589",
+                    "id": "f94d956c-d4ef-4df6-906d-614bff7cbf7e",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Drift",
+                    "action": "ActuateHook",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

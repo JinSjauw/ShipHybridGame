@@ -4,12 +4,13 @@ using TheKiwiCoder;
 public class GetRandomPointInRadius : ActionNode
 {
     public float radius;
-    
+    public bool playerCenter;
+
     private Vector2 center;
     
     protected override void OnStart()
     {
-        center = blackboard.PlayerTransform.position;
+        center = playerCenter ? blackboard.PlayerTransform.position : context.whaleBody.position;
     }
 
     protected override void OnStop() 

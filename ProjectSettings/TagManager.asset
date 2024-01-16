@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - HarpoonCamera
-  - BOAT
+  - Whale
   layers:
   - Default
   - TransparentFX
@@ -14,9 +14,9 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
+  - FishingSpot
+  - NetBody
+  - Whale
   - 
   - 
   - 

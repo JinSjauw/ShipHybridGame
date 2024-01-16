@@ -59,7 +59,7 @@ public class BoatEngineSounds : MonoBehaviour
 
     }
 
-    public void thrustBellSound(int thrustValue) //takes the thrustvalue from the Arduino and calls the bell when the thrust gets past 0 and 50
+    public void thrustBellSound(float thrustValue) //takes the thrustvalue from the Arduino and calls the bell when the thrust gets past 0 and 50
     {
         Debug.Log("thrust:  " + thrustValue);
 
