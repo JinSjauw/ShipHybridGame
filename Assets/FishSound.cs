@@ -6,6 +6,7 @@ public class FishSound : MonoBehaviour
 {
 
      public int Fishcount;
+     public int totalFishCaught;
      public AudioClip FishCatch1;
      public AudioClip FishCatch2;
      public AudioClip FishCatch3;
