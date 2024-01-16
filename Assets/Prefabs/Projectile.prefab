@@ -187,6 +187,7 @@ MonoBehaviour:
   debugCurve: 0
   showForces: 1
   sidewaysDrag: 1
+  useForwardVelocity: 0
 --- !u!54 &3436185467957541758
 Rigidbody:
   m_ObjectHideFlags: 0
