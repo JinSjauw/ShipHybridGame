@@ -6,7 +6,10 @@ public class FishSound : MonoBehaviour
 {
 
      public int Fishcount;
-     public int totalFishCaught;
+     public int Score;
+    public int FishCountMax;
+     public bool fishNetIsFull;
+    public AudioClip FishNetFull;
      public AudioClip FishCatch1;
      public AudioClip FishCatch2;
      public AudioClip FishCatch3;
@@ -22,31 +25,39 @@ public class FishSound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Fishcount == 3)
+
+
+        if (Fishcount > FishCountMax)
+        {
+            fishNetIsFull = true;
+        }
+
+
+        if(Score == 3)
         {
             AS.PlayOneShot(FishCatch1,1);
             Fishcount++;
         }
 
-        if (Fishcount == 7)
+        if (Score == 7)
         {
             AS.PlayOneShot(FishCatch2);
             Fishcount++;
         }
 
-        if (Fishcount == 10)
+        if (Score == 10)
         {
             AS.PlayOneShot(FishCatch3);
             Fishcount++;
         }
         
-        if (Fishcount == 13)
+        if (Score == 13)
         {
             AS.PlayOneShot(FishCatch4);
             Fishcount++;
         }
 
-        if (Fishcount > 17)
+        if (Score > 17)
         {
             AS.PlayOneShot(FishCatch5);
             Fishcount = 1;
