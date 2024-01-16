@@ -14,7 +14,9 @@ public class InRange : ActionNode
         target = blackboard.PlayerTransform.position;
     }
 
-    protected override void OnStop() {
+    protected override void OnStop() 
+    {
+        
     }
 
     protected override State OnUpdate()
