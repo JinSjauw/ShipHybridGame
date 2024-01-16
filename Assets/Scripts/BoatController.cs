@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 [RequireComponent(typeof(Rigidbody))]
-public class BoatController : MonoBehaviour
+public class BoatController : MonoBehaviour, IDamageable
 {
     [Header("Boat Physics References")]
 
@@ -45,9 +44,10 @@ public class BoatController : MonoBehaviour
     [SerializeField] private float minStartDriftVelocity;
     [SerializeField] private float minEndDriftVelocity;
 
-    [Header("Net Controller")] 
+    [Header("Auxiliary Controllers")] 
     [SerializeField] private NetController netController;
-
+    [SerializeField] private TurretController turretController;
+    
     private Rigidbody boatBody;
 
     private bool isMoving;
@@ -62,6 +62,8 @@ public class BoatController : MonoBehaviour
     private float turnRate;
     private float turnAngle;
 
+    private int Health { get; set; }
+    
     private bool debug;
 
     #region Unity Functions
@@ -298,30 +300,31 @@ public class BoatController : MonoBehaviour
         return Vector3.Dot(boatBody.velocity, transform.right);
     }
     
-    public void SetTurnAngle(float turnValue)
-    {
-        turnAngle = -turnValue * 0.4f;
-    }
-    public void SetThrust(float thrustValue)
-    {
-        //Max thrust speed;
-        /*float maxThrustValue = 90;
-        if (thrustValue < 0)
-        {
-            thrustValue = 0;
-        }
-
-        thrust = thrustValue / maxThrustValue;*/
-        //Debug.Log("Thrust: " + thrust);
-
-        thrust = thrustValue;
-    }
-
     public NetController GetNetController()
     {
         return netController;
     }
     
     #endregion
+
+    #region IDamageable Functions
     
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+        }
+
+        public void SetHealth(int amount)
+        {
+            Health = amount;
+        }
+
+        public void Die()
+        {
+            Log("Died!");
+        }
+
+        #endregion
+
+
 }
