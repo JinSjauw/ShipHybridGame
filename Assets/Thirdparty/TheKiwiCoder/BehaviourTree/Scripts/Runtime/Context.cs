@@ -23,9 +23,8 @@ namespace TheKiwiCoder {
             context.gameObject = gameObject;
             context.transform = gameObject.transform;
             context.agent = gameObject.GetComponent<NavMeshAgent>();
-            context.whaleBody = gameObject.GetComponentInChildren<MeshRenderer>().transform;
             context.animator = gameObject.GetComponentInChildren<Animator>();
-            
+            context.whaleBody = gameObject.GetComponentInChildren<WhaleCollisionHandler>().transform;
             // Add whatever else you need here...
 
             return context;
