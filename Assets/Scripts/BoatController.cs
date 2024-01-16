@@ -60,7 +60,7 @@ public class BoatController : MonoBehaviour, IDamageable
     private float normalizedSpeed;
 
     private float turnRate;
-    [SerializeField] private float turnAngle;
+    [SerializeField] public float turnAngle;
 
     private int Health { get; set; }
 

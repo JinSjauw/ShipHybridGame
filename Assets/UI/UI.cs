@@ -8,18 +8,16 @@ public class UI : MonoBehaviour
 
     [SerializeField] public float Throttle;
     [SerializeField] public int Health;
-    [SerializeField] public float turnAngle;
+    [SerializeField] public float TurnAngle;
     [SerializeField] public float FishAmount;
 
     public Transform wheel;
-
+    private BoatController BoatController;
     public Slider Fishslider;
     public Slider Healthslider;
     public GameObject maskParent;
-
     public Sprite Left;
     public Sprite Right;
-
     public Sprite Neutral;
 
     [SerializeField]
@@ -47,7 +45,9 @@ public class UI : MonoBehaviour
 
     private void Start()
     {
+        BoatController = GetComponent<BoatController>();
         UpdateRectMask();
+
     }
     void Update()
     {
@@ -60,24 +60,26 @@ public class UI : MonoBehaviour
     private void Centerwheel()
     {
 
-        float normalizedRotation1 = Mathf.InverseLerp(-40, 40, turnAngle);
+
+
+        float normalizedRotation1 = Mathf.InverseLerp(-40, 40, TurnAngle);
         float remappedRotation1 = Mathf.Lerp(360, -360, normalizedRotation1);
         wheel.transform.rotation = Quaternion.Euler(0f, 0f, remappedRotation1);
 
     }
     private void Turnsignal()
     {
-        if (turnAngle > 0)
+        if (TurnAngle > 0)
         {
             turnsignal.sprite = Right;
 
         }
-        if (turnAngle < 0)
+        if (TurnAngle < 0)
         {
             turnsignal.sprite = Left;
 
         }
-        if (turnAngle == 0)
+        if (TurnAngle == 0)
         {
             turnsignal.sprite = Neutral;
 
@@ -97,7 +99,7 @@ public class UI : MonoBehaviour
         float rectTop = remappedthrottle;
 
 
-        // Update the RectMask2D's padding
+
         RectMask2D rectMask = maskParent.GetComponent<RectMask2D>();
         if (rectMask != null)
         {
@@ -105,7 +107,6 @@ public class UI : MonoBehaviour
             rectMask.padding = new Vector4(currentPadding.x, 0, currentPadding.z, +rectTop);
         }
     }
-    // Called in the editor when a value is changed in the Inspector
     private void OnValidate()
     {
         UpdateRectMask();
