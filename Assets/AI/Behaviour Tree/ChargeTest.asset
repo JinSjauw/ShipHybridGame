@@ -68,6 +68,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   radius: 0
+  playerCenter: 0
 --- !u!114 &-748112756597230492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +161,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 0431583515bdf664c9d06080d87869f2
-  position: {x: 419.60757, y: 612.99994}
+  position: {x: 412.53995, y: 612.80005}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -212,48 +213,6 @@ MonoBehaviour:
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
-  depthCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.0038073286
-      value: 0.4832723
-      inSlope: -2.525221
-      outSlope: -2.525221
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.34553877
-    - serializedVersion: 3
-      time: 0.21727285
-      value: 0.041448683
-      inSlope: -0.021438764
-      outSlope: -0.021438764
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.4517453
-    - serializedVersion: 3
-      time: 0.7358401
-      value: 0.9900498
-      inSlope: -0.015239236
-      outSlope: -0.015239236
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.73143005
-    - serializedVersion: 3
-      time: 1.0038073
-      value: 0.4832723
-      inSlope: -2.5778182
-      outSlope: -2.5778182
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.30464992
-      outWeight: 0
-    m_PreInfinity: 1
-    m_PostInfinity: 1
     m_RotationOrder: 4
   depthOffset: 3
   minDepth: -6

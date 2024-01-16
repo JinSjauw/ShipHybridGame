@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +13,8 @@ namespace TheKiwiCoder {
         public Animator animator;
         public NavMeshAgent agent;
         public Transform whaleBody;
+        public WhaleLauncher whaleLauncher;
+        public AudioController audioController;
         // Add other game specific systems here
 
         public static Context CreateFromGameObject(GameObject gameObject) {
@@ -25,6 +25,8 @@ namespace TheKiwiCoder {
             context.agent = gameObject.GetComponent<NavMeshAgent>();
             context.animator = gameObject.GetComponentInChildren<Animator>();
             context.whaleBody = gameObject.GetComponentInChildren<WhaleCollisionHandler>().transform;
+            context.whaleLauncher = gameObject.GetComponent<WhaleLauncher>();
+            context.audioController = gameObject.GetComponent<AudioController>();
             // Add whatever else you need here...
 
             return context;
