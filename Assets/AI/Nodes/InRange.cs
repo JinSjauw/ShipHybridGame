@@ -11,7 +11,8 @@ public class InRange : ActionNode
     
     protected override void OnStart()
     {
-        target = blackboard.PlayerTransform.position;
+        Vector3 playerTransform = blackboard.PlayerTransform.position;
+        target = new Vector2(playerTransform.x, playerTransform.z);
     }
 
     protected override void OnStop() 
@@ -21,7 +22,8 @@ public class InRange : ActionNode
 
     protected override State OnUpdate()
     {
-        float distance = Vector2.Distance(blackboard.moveToPosition, target);
+        Vector3 agentPosition = context.transform.position;
+        float distance = Vector2.Distance(new Vector2(agentPosition.x, agentPosition.z), target);
 
         if (distance > minRange)
         {
