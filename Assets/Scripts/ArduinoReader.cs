@@ -24,6 +24,14 @@ public class ArduinoReader : MonoBehaviour
     private float maxTurnAngle = 25;
     private float maxThrustValue = 90;
 
+    private int harpoonX;
+    private int harpoonY;
+
+    private int maxHarpoonXangle = 120;
+    private int maxHarpoonYangle = 120;
+
+    private int harpoonButton;
+
     #region Unity Functions
 
     private void Awake()
@@ -37,7 +45,7 @@ public class ArduinoReader : MonoBehaviour
         if (!isRunning) return;
 
         label.text = "Turn Angle: " + turnAngle + "\n"
-                     + "Thrust: " + thrust;
+                     + "Thrust: " + thrust * 100;
         boatEngineSounds.thrustBellSound(thrust);
         /*boatController.SetThrust(thrust);
         boatController.SetTurnAngle(turnAngle);*/
@@ -82,6 +90,22 @@ public class ArduinoReader : MonoBehaviour
                 thrust = thrustValue / maxThrustValue;
             }
 
+            if (Int32.TryParse(data[3], out int x))
+            {
+                //Max turnAngle is set here
+                harpoonX = x;
+            }
+
+            if (Int32.TryParse(data[4], out int y))
+            {
+                //Max turnAngle is set here
+                harpoonY = y;
+            }
+
+            if(Int32.TryParse(data[5], out int buttonState)) 
+            {
+                harpoonButton = buttonState;
+            }
             //Debug.Log(data.Length);
         }
     }
@@ -118,5 +142,10 @@ public class ArduinoReader : MonoBehaviour
     public float GetThrust()
     {
         return thrust;
+    }
+
+    public Vector3 GetHarpoonInput() 
+    {
+        return new Vector3(harpoonX, harpoonY, harpoonButton);
     }
 }
