@@ -5,11 +5,11 @@ using UnityEngine;
 public class FishSound : MonoBehaviour
 {
 
-     public int Fishcount;
-     public int Score;
-    public int FishCountMax;
+     [HideInInspector] public int Fishcount;
+     [HideInInspector] public int Score;
+     public int FishCountMax;
      public bool fishNetIsFull;
-    public AudioClip FishNetFull;
+     public AudioClip FishNetFull;
      public AudioClip FishCatch1;
      public AudioClip FishCatch2;
      public AudioClip FishCatch3;

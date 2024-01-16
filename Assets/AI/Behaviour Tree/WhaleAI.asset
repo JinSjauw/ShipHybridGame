@@ -81,7 +81,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 4ca0aed8d72d29540908fcc1741b94cd
-  position: {x: -375.20013, y: 665.2002}
+  position: {x: -376.00012, y: 665.0001}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -113,7 +113,6 @@ MonoBehaviour:
   - {fileID: 7916798075848593593}
   - {fileID: 6539420737418498860}
   - {fileID: 41741064039584522}
-  - {fileID: 2362111241846397014}
   - {fileID: 5722940186522321985}
 --- !u!114 &-7634719769252072012
 MonoBehaviour:
@@ -415,7 +414,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 9b9715fb3e109d646bdcc71a90b8c0fa
-  position: {x: -421.56488, y: 818.40015}
+  position: {x: -477.70026, y: 816.0002}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -499,7 +498,6 @@ MonoBehaviour:
   - {fileID: 41741064039584522}
   - {fileID: 7916798075848593593}
   - {fileID: -7728256537938270071}
-  - {fileID: 2362111241846397014}
   - {fileID: 6370580124471941521}
   - {fileID: -8471982794551401161}
   - {fileID: -3205954834291162569}
@@ -542,7 +540,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: e711c08e42068254c9e63e2b71f1abcd
-  position: {x: -871.9648, y: 665.6002}
+  position: {x: -777.70026, y: 664.0002}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -585,7 +583,7 @@ MonoBehaviour:
   tolerance: 1
   stoppingDistance: 0.1
   acceleration: 60
-  targetDepthOffset: -0.5
+  targetDepthOffset: 0.5
 --- !u!114 &1352670368797824467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,28 +737,6 @@ MonoBehaviour:
   - {fileID: 1854482917243178211}
   - {fileID: -59121219119514934}
   - {fileID: 1823972955861719608}
---- !u!114 &2362111241846397014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5134d9de14153468b48928d3e7359a, type: 3}
-  m_Name: Wait
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 444e9c18381648e49b76ad30de0c4da1
-  position: {x: -721.5648, y: 665.6002}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-    PlayerTransform: {fileID: 0}
-  description: 
-  drawGizmos: 0
-  duration: 2
 --- !u!114 &4310822724935321414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,7 +798,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 04eb91f9c55787e41a8cb53a1ae8ea62
-  position: {x: -756.7649, y: 819.2001}
+  position: {x: -812.70026, y: 817.0002}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -897,7 +873,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: bcb7e0975e0863547ba78ace12dba01e
-  position: {x: -571.96484, y: 665.6002}
+  position: {x: -627.7002, y: 664.0002}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -950,7 +926,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 9593dc7ee13c9c04d92ca8540e97d100
-  position: {x: -1022.36487, y: 665.6002}
+  position: {x: -927.70026, y: 664.0002}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -996,7 +972,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 29fe2ab25a702994d86c0a8b9b324512
-  position: {x: -571.96484, y: 819.2001}
+  position: {x: -627.7002, y: 817.0002}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
@@ -1066,7 +1042,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: eb73212c5b961f947b0d39bd63a1f1c0
-  position: {x: -1172.7649, y: 665.6002}
+  position: {x: -1078.7002, y: 664.0002}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
     PlayerTransform: {fileID: 0}
