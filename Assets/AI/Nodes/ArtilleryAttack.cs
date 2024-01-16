@@ -47,7 +47,7 @@ public class ArtilleryAttack : ActionNode
         if (current >= 1)
         {
             //Do the shooting;
-            context.whaleLauncher.Launch(launchAmount);
+            context.whaleLauncher.Launch(launchAmount, blackboard.PlayerTransform);
             return State.Success;
         }
 

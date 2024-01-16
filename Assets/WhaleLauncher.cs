@@ -7,15 +7,20 @@ public class WhaleLauncher : MonoBehaviour
     [SerializeField] private List<Transform> projectileList;
 
     [SerializeField] private float launchDelay;
+    [SerializeField] private float spawnHeight;
     [SerializeField] private bool debug;
     
     private int launchAmount;
+    private Transform target;
     
     private IEnumerator LaunchProjectile()
     {
         for (int i = 0; i < launchAmount; i++)
         {
+            Vector3 targetPosition = target.position;
+            targetPosition.y = spawnHeight;
             Log("Fired Projectile #" + i);
+            Instantiate(projectileList[0], targetPosition, Quaternion.identity);
             yield return new WaitForSeconds(launchDelay);
         }
     }
@@ -26,10 +31,11 @@ public class WhaleLauncher : MonoBehaviour
         Debug.Log("[WhaleLauncher]: " + _msg);
     }
     
-    public void Launch(int amount)
+    public void Launch(int amount, Transform targetTransform)
     {
         Log("LaunchAmount:"  + launchAmount);
         launchAmount = amount;
+        target = targetTransform;
         StartCoroutine(LaunchProjectile());
     }
 }
