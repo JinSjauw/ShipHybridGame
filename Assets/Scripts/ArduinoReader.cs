@@ -112,23 +112,19 @@ public class ArduinoReader : MonoBehaviour
                 harpoonButton = buttonState;
             }
             if(Int32.TryParse(data[5], out int netButtonState)) 
-            {
+            { 
                 //Drop Net
-               
-            }
-            if(Int32.TryParse(data[6], out int craneButtonState)) 
-            {
-                //Actuate Crane
+                if (netButtonState == 1 && netButton != 1)
+                {
+                    netButtonPressed = true;
+                }
+                else
+                {
+                    netButton = 0;
+                }
             }
             //Debug.Log(data.Length);
         }
-    }
-
-    private int ReadButton(int state) 
-    {
-
-
-        return 0;
     }
 
     public void Initialize(float turnAngleMax, float thrustValueMax)
@@ -168,5 +164,16 @@ public class ArduinoReader : MonoBehaviour
     public Vector3 GetHarpoonInput() 
     {
         return new Vector3(harpoonX, harpoonY, harpoonButton);
+    }
+
+    public int GetNetButton()
+    {
+        if (netButtonPressed)
+        {
+            netButtonPressed = false;
+            return 1;
+        }
+
+        return 0;
     }
 }
