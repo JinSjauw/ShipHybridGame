@@ -33,7 +33,15 @@ public class NetController : MonoBehaviour
 
     [Header("Fish Audio")] 
     [SerializeField] private AudioID fishNetFull;
-    
+
+
+    [SerializeField] private int fishAudioStep = 4;
+    [SerializeField] private int fishAudioCount;
+    public AudioClip[] Sounds;
+    public AudioClip clip;
+    public AudioSource myAudioSource;
+
+
     [SerializeField] private AudioID fishCatch1;
     [SerializeField] [Range(0, .2f)]private float playThreshold1;
     [SerializeField] private AudioID fishCatch2;
@@ -168,8 +176,18 @@ public class NetController : MonoBehaviour
             if (!fishnetTransform.gameObject.activeInHierarchy) return false;
             if(fishCount >= maxFishCount) return false;
             fishCount++;
+            fishAudioCount++;
+           
+     
+            if (fishAudioCount > 5)
+            {
+            Debug.Log("hallo");
+            CallAudio();
+            fishAudioCount = 0;
+            }
 
-            fishCapacityPercentage = Mathf.Clamp01(fishCount / (float)maxFishCount);
+
+        fishCapacityPercentage = Mathf.Clamp01(fishCount / (float)maxFishCount);
             
             netBodyCollider.radius = Mathf.Lerp(minNetRadius, maxNetRadius, fishCapacityPercentage);
             float fishBallSize = Mathf.Lerp(minFishBallRadius, maxFishBallRadius, fishCapacityPercentage);
@@ -179,36 +197,46 @@ public class NetController : MonoBehaviour
             Debug.Log("[NetController]: [Fish Capacity %]" + fishCapacityPercentage);
             
             return true;
-            
-            if (fishCapacityPercentage >= 1)
-            {
-                AudioController.Instance.PlayAudio(fishNetFull);
-            }
-            else if (fishCapacityPercentage >= playThreshold5)
-            {
-                AudioController.Instance.PlayAudio(fishCatch5);
-            }
-            else if (fishCapacityPercentage >= playThreshold4)
-            {
-                AudioController.Instance.PlayAudio(fishCatch4);
-            }
-            else if (fishCapacityPercentage >= playThreshold3)
-            {
-                AudioController.Instance.PlayAudio(fishCatch3);
-            }
-            else if (fishCapacityPercentage >= playThreshold2)
-            {
-                AudioController.Instance.PlayAudio(fishCatch2);
-            }
-            else if (fishCapacityPercentage >= playThreshold1)
-            {
-                AudioController.Instance.PlayAudio(fishCatch1);
-            }
+
+
+      
+
+
+          //  if (fishCapacityPercentage >= 1)
+          //  {
+           //     AudioController.Instance.PlayAudio(fishNetFull);
+           // }
+            //else if (fishCapacityPercentage >= playThreshold5)
+           // {
+           //     AudioController.Instance.PlayAudio(fishCatch5);
+           // }
+           // else if (fishCapacityPercentage >= playThreshold4)
+          // {
+           //     AudioController.Instance.PlayAudio(fishCatch4);
+           // }
+           // else if (fishCapacityPercentage >= playThreshold3)
+          // {
+            //    AudioController.Instance.PlayAudio(fishCatch3);
+          //  }
+           // else if (fishCapacityPercentage >= playThreshold2)
+           // {
+             //   AudioController.Instance.PlayAudio(fishCatch2);
+           // }
+           // else if (fishCapacityPercentage >= playThreshold1)
+           // {
+            //    AudioController.Instance.PlayAudio(fishCatch1);
+           // }
+        }
+
+        void CallAudio()
+        {
+        clip = Sounds[UnityEngine.Random.Range(0, Sounds.Length)];
+        myAudioSource.PlayOneShot(clip);
         }
 
     #endregion
-    
 
 
-    
+
+
 }
