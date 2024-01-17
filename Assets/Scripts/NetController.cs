@@ -6,6 +6,11 @@ using UnityEngine.ProBuilder.Shapes;
 
 public class NetController : MonoBehaviour
 {
+    [Header("Fishing Mode")] 
+    [SerializeField] private bool isStatic;
+    [SerializeField] private float maxForwardVel;
+    [SerializeField] private float maxSideVel;
+    
     [Header("Hook & Crane")]
     [SerializeField] private Transform anchor;
     [SerializeField] private Transform hook;
@@ -33,7 +38,6 @@ public class NetController : MonoBehaviour
 
     [Header("Fish Audio")] 
     [SerializeField] private AudioID fishNetFull;
-
 
     [SerializeField] private int fishAudioStep = 4;
     [SerializeField] private int fishAudioCount;
@@ -66,14 +70,16 @@ public class NetController : MonoBehaviour
     private int fishCount;
     private float fishCapacityPercentage;
     private SphereCollider netBodyCollider;
-    
+
+    private BoatController boatController;
     // Have the ball follow an anchor;
     
     #region Unity Functions
 
     private void Awake()
     {
-        if (!ropeController) ropeController.GetComponent<RopeController>();
+        if (ropeController == null) ropeController.GetComponent<RopeController>();
+        boatController = transform.root.GetComponent<BoatController>();
     }
 
     private void Start()
@@ -171,14 +177,24 @@ public class NetController : MonoBehaviour
             //Play Audio Net DropAudio Here
         }
     
-        public bool AddFish()
+        public bool AddFish(int amount  = 1)
         {
             if (!fishnetTransform.gameObject.activeInHierarchy) return false;
-            if(fishCount >= maxFishCount) return false;
-            fishCount++;
-            fishAudioCount++;
-           
-     
+
+            if (isStatic)
+            {
+                if (boatController.ForwardsVelocity() > maxForwardVel || boatController.SidewaysVelocity() > maxSideVel)
+                {
+                    Debug.Log("[Boat Velocity:] [" + boatController.ForwardsVelocity() + ", " + boatController.SidewaysVelocity() + "]");
+                    return false;
+                }
+            }
+
+            if (fishCount >= maxFishCount) return false;
+                
+            fishCount += amount;
+            fishAudioCount += amount;
+            
             if (fishAudioCount > 5)
             {
             Debug.Log("hallo");
@@ -187,7 +203,7 @@ public class NetController : MonoBehaviour
             }
 
 
-        fishCapacityPercentage = Mathf.Clamp01(fishCount / (float)maxFishCount);
+            fishCapacityPercentage = Mathf.Clamp01(fishCount / (float)maxFishCount);
             
             netBodyCollider.radius = Mathf.Lerp(minNetRadius, maxNetRadius, fishCapacityPercentage);
             float fishBallSize = Mathf.Lerp(minFishBallRadius, maxFishBallRadius, fishCapacityPercentage);
@@ -197,11 +213,7 @@ public class NetController : MonoBehaviour
             Debug.Log("[NetController]: [Fish Capacity %]" + fishCapacityPercentage);
             
             return true;
-
-
-      
-
-
+            
           //  if (fishCapacityPercentage >= 1)
           //  {
            //     AudioController.Instance.PlayAudio(fishNetFull);

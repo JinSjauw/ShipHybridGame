@@ -99,6 +99,7 @@ MonoBehaviour:
   debugCurve: 0
   showForces: 1
   sidewaysDrag: 1
+  useForwardVelocity: 0
 --- !u!1 &285563306969223687
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,6 +199,7 @@ MonoBehaviour:
   debugCurve: 0
   showForces: 1
   sidewaysDrag: 1
+  useForwardVelocity: 0
 --- !u!1 &2205584999974010568
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,17 +243,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 119
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.456685, y: 0.7659477, z: 5.6632395}
-  m_Center: {x: 0.22334158, y: 0.6829846, z: 0.055111174}
+  m_Size: {x: 5.456685, y: 4.477266, z: 5.6632395}
+  m_Center: {x: 0.22334146, y: 2.2420452, z: 0.05511117}
 --- !u!114 &5542657179401898350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,8 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f082fe283a9419f4691853f5a2e131a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  driftFishing: 0
-  fishingRate: 0
+  fishingTime: 3
+  fishingRate: 5
 --- !u!1 &6001514620620576274
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,6 +367,7 @@ MonoBehaviour:
   debugCurve: 0
   showForces: 1
   sidewaysDrag: 1
+  useForwardVelocity: 0
 --- !u!1 &6039439964756563021
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +502,7 @@ MonoBehaviour:
   debugCurve: 0
   showForces: 1
   sidewaysDrag: 1
+  useForwardVelocity: 0
 --- !u!1 &7602873632236178280
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +538,7 @@ Transform:
   - {fileID: 23560085819025938}
   - {fileID: 8297797556084232221}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7485164839281361361
 MeshFilter:
