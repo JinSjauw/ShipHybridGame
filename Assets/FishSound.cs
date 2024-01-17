@@ -5,7 +5,6 @@ using UnityEngine;
 public class FishSound : MonoBehaviour
 {
 
-     [HideInInspector] public int Fishcount;
      [HideInInspector] public int Score;
      public int FishCountMax;
      public bool fishNetIsFull;
@@ -27,7 +26,7 @@ public class FishSound : MonoBehaviour
     {
 
 
-        if (Fishcount > FishCountMax)
+        if (Score > FishCountMax)
         {
             fishNetIsFull = true;
         }
@@ -36,32 +35,32 @@ public class FishSound : MonoBehaviour
         if(Score == 3)
         {
             AS.PlayOneShot(FishCatch1,1);
-            Fishcount++;
+            Score++;
         }
 
         if (Score == 7)
         {
             AS.PlayOneShot(FishCatch2);
-            Fishcount++;
+            Score++;
         }
 
         if (Score == 10)
         {
             AS.PlayOneShot(FishCatch3);
-            Fishcount++;
+            Score++;
         }
         
         if (Score == 13)
         {
             AS.PlayOneShot(FishCatch4);
-            Fishcount++;
+            Score++;
         }
 
         if (Score > 17)
         {
             AS.PlayOneShot(FishCatch5);
-            Fishcount = 1;
-            Fishcount++;
+            Score = 1;
+            Score ++;
         }
     }
 }
