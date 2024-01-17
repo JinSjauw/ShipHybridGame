@@ -66,6 +66,8 @@ public class BoatController : MonoBehaviour, IDamageable
 
     private int Health { get; set; }
 
+    private float oldTurnSpeed;
+
     private bool debug;
 
     #region Unity Functions
@@ -101,6 +103,7 @@ public class BoatController : MonoBehaviour, IDamageable
 
     void FixedUpdate()
     {
+
         if (!useArduino && arduinoReader.IsRunning())
         {
             arduinoReader.StopThread();
@@ -326,7 +329,17 @@ public class BoatController : MonoBehaviour, IDamageable
     {
         return Vector3.Dot(boatBody.velocity, transform.right);
     }
-    
+
+    public float TurnAngle()
+    {
+        return turnAngle;
+    }
+
+    public float Throttle()
+    {
+        return useArduino ? arduinoReader.GetThrust() : throttle;
+    }
+
     public float ForwardsVelocity()
     {
         return Vector3.Dot(boatBody.velocity, transform.forward);
@@ -340,6 +353,19 @@ public class BoatController : MonoBehaviour, IDamageable
     public bool IsDrifting() 
     {
         return isDrifting;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+        turnSpeed = 20;
+        oldTurnSpeed = turnSpeed;
+  
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        turnSpeed = oldTurnSpeed;
     }
 
     #endregion

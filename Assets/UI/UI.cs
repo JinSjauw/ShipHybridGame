@@ -5,14 +5,14 @@ public class UI : MonoBehaviour
 {
 
 
+    public BoatController boatController;
 
-    [SerializeField] public float Throttle;
-    [SerializeField] public int Health;
-    [SerializeField] public float TurnAngle;
-    [SerializeField] public float FishAmount;
+    [SerializeField] private float Throttle;
+    [SerializeField] private int Health;
+    [SerializeField] private float TurnAngle;
+    [SerializeField] private float FishAmount;
 
     public Transform wheel;
-    private BoatController BoatController;
     public Slider Fishslider;
     public Slider Healthslider;
     public GameObject maskParent;
@@ -45,12 +45,13 @@ public class UI : MonoBehaviour
 
     private void Start()
     {
-        BoatController = GetComponent<BoatController>();
+        SetGlobalValue();
         UpdateRectMask();
 
     }
     void Update()
     {
+        SetGlobalValue();
         Centerwheel();
         ChangeHealthImage();
         Turnsignal();
@@ -59,9 +60,6 @@ public class UI : MonoBehaviour
     }
     private void Centerwheel()
     {
-
-
-
         float normalizedRotation1 = Mathf.InverseLerp(-40, 40, TurnAngle);
         float remappedRotation1 = Mathf.Lerp(360, -360, normalizedRotation1);
         wheel.transform.rotation = Quaternion.Euler(0f, 0f, remappedRotation1);
@@ -69,6 +67,7 @@ public class UI : MonoBehaviour
     }
     private void Turnsignal()
     {
+
         if (TurnAngle > 0)
         {
             turnsignal.sprite = Right;
@@ -95,7 +94,7 @@ public class UI : MonoBehaviour
     {
         float normalizedthrottle = Mathf.InverseLerp(0, 1, Throttle);
         float remappedthrottle = Mathf.Lerp(161, 66, normalizedthrottle);
-
+        Debug.Log("remappedThrottle: " + remappedthrottle);
         float rectTop = remappedthrottle;
 
 
@@ -111,5 +110,12 @@ public class UI : MonoBehaviour
     {
         UpdateRectMask();
 
+    }
+
+    private void SetGlobalValue()
+    { 
+         Throttle = boatController.Throttle();
+        Debug.Log(Throttle);
+         TurnAngle = boatController.TurnAngle();
     }
 }
