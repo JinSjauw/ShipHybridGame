@@ -6,7 +6,7 @@ public class GetRandomPointInRadius : ActionNode
     public float radius;
     public bool playerCenter;
 
-    private Vector2 center;
+    private Vector3 center;
     
     protected override void OnStart()
     {
@@ -20,8 +20,8 @@ public class GetRandomPointInRadius : ActionNode
 
     protected override State OnUpdate()
     {
-        Vector2 targetPosition = center + Random.insideUnitCircle * radius;
-        blackboard.moveToPosition = targetPosition;
+        Vector2 targetPosition = new Vector2(center.x, center.z) + Random.insideUnitCircle * radius;
+        blackboard.moveToPosition = new Vector3(targetPosition.x, 0, targetPosition.y);
         
         return State.Success;
     }

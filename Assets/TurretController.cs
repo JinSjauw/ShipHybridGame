@@ -33,6 +33,7 @@ public class TurretController : MonoBehaviour
     {
         //Shoot...
         //Also apply force back onto the boat rigidBody;
+        Debug.Log("Shot harpoon");
     }
 
     public void RotateHarpoon(float x, float y)

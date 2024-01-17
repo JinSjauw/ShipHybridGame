@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tree: {fileID: 11400000, guid: f2746ead01567b5488419ab7b0d9e17c, type: 2}
+  tree: {fileID: 11400000, guid: 264871aacb2984a469173982e9fed669, type: 2}
 --- !u!195 &20053396285128581
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -183,6 +183,7 @@ MonoBehaviour:
   projectileList:
   - {fileID: 1182744609604246860, guid: 4b087234d97095c43a31a37b26eba478, type: 3}
   launchDelay: 0.2
+  spawnHeight: 30
   debug: 1
 --- !u!1 &402363444718548461
 GameObject:

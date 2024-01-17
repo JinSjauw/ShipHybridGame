@@ -167,6 +167,14 @@ public class BoatController : MonoBehaviour, IDamageable
         }
     }
 
+    public void OnDropNet(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            netController.DropFishNet();
+        }
+    }
+
     #endregion
 
     #region Private Functions
@@ -217,6 +225,17 @@ public class BoatController : MonoBehaviour, IDamageable
             Vector3 angularVelocity = new Vector3(0, arduinoReader.GetTurnAngle(), 0);
             boatBody.angularVelocity = (turnSpeed * angularVelocity) * normalizedSpeed;
         }
+
+        //Harpoon Input
+        Vector3 harpoonInput = arduinoReader.GetHarpoonInput();
+
+        turretController.RotateHarpoon(harpoonInput.x, harpoonInput.y);
+
+       if(harpoonInput.z == 1)
+        {
+            turretController.ShootHarpoon();
+        }
+
     }
     private void KeepUpright()
     {
@@ -244,7 +263,7 @@ public class BoatController : MonoBehaviour, IDamageable
         // Map the normalized value to the range [0.20, 1]
         float remappedVelocity = Mathf.Lerp(0.1f, 1f, normalizedVelocity);
 
-        float thrustValue = useArduino ? thrust : throttle;
+        float thrustValue = useArduino ? arduinoReader.GetThrust() : throttle;
 
         if (thrustValue > 0 && WaterCheck())
         {
@@ -252,6 +271,8 @@ public class BoatController : MonoBehaviour, IDamageable
             {
                 wakeParticle.Play();
             }
+
+            Log("Drifting " + velocity);
 
             if (Mathf.Abs(velocity) > minStartDriftVelocity)
             {
