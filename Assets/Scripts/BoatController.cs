@@ -19,7 +19,7 @@ public class BoatController : MonoBehaviour, IDamageable
     [Header("Boat Locomotion")]
 
     [Header("Arduino Parameters")]
-    [Header("Use Arduino")] [SerializeField] private bool useArduino;
+    [Header("Use Arduino")][SerializeField] private bool useArduino;
     [SerializeField] private float maxArduinoTurnAngle;
     [SerializeField] private float maxArduinoThrustValue;
     private ArduinoReader arduinoReader;
@@ -56,13 +56,13 @@ public class BoatController : MonoBehaviour, IDamageable
     private bool isTurning;
     private bool isDrifting;
 
-    private float throttle;
-    private float thrust;
-    private float boatSpeed;
+    [SerializeField] private float throttle;
+    [SerializeField] private float thrust;
+    [SerializeField] private float boatSpeed;
     private float normalizedSpeed;
 
     private float turnRate;
-    private float turnAngle;
+    [SerializeField] public float turnAngle;
 
     private int Health { get; set; }
 
@@ -105,7 +105,7 @@ public class BoatController : MonoBehaviour, IDamageable
         {
             arduinoReader.StopThread();
         }
-        else if(useArduino && !arduinoReader.IsRunning())
+        else if (useArduino && !arduinoReader.IsRunning())
         {
             arduinoReader.StartThread();
         }
@@ -351,17 +351,22 @@ public class BoatController : MonoBehaviour, IDamageable
             Health -= damage;
         }
 
-        public void SetHealth(int amount)
-        {
-            Health = amount;
-        }
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+    }
 
-        public void Die()
-        {
-            Log("Died!");
-        }
+    public void SetHealth(int amount)
+    {
+        Health = amount;
+    }
 
-        #endregion
+    public void Die()
+    {
+        Log("Died!");
+    }
+
+    #endregion
 
 
 }
