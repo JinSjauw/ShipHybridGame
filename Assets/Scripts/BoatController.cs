@@ -346,10 +346,6 @@ public class BoatController : MonoBehaviour, IDamageable
 
     #region IDamageable Functions
 
-        public void TakeDamage(int damage)
-        {
-            Health -= damage;
-        }
 
     public void TakeDamage(int damage)
     {
