@@ -204,6 +204,10 @@ public class BoatController : MonoBehaviour, IDamageable
                 DrawArrow.ForDebug(point.position, accelDirection * availablePower, Color.yellow);
             }
         }
+        else if (thrustValue <= 0 && WaterCheck())
+        {
+            boatBody.velocity = Vector3.zero;
+        }
 
         if (isTurning && !useArduino)
         {
@@ -321,6 +325,11 @@ public class BoatController : MonoBehaviour, IDamageable
     public float SidewaysVelocity()
     {
         return Vector3.Dot(boatBody.velocity, transform.right);
+    }
+    
+    public float ForwardsVelocity()
+    {
+        return Vector3.Dot(boatBody.velocity, transform.forward);
     }
 
     public NetController GetNetController()
