@@ -5,12 +5,14 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
 
-    public GameObject AllFish;
+    
+
+    public GameObject Fishcount;
     // Start is called before the first frame update
     void Start()
     {
 
-        AllFish = GameObject.FindWithTag("AllFish");
+        Fishcount = GameObject.FindWithTag("AllFish");
      // Fishcount.GetComponent<FishSound>();
     }
 
@@ -24,9 +26,11 @@ public class Fish : MonoBehaviour
     {
         if(other.gameObject.tag == "BOAT")
         {
-            AllFish.GetComponent<FishSound>().Score ++;
-            AllFish.GetComponent<FishSound>().Fishcount++;
+
+            Fishcount.GetComponent<FishSound>().Fishcount ++;
             Destroy(gameObject);
+
+
         }
     }
 }

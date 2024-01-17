@@ -13,6 +13,7 @@ public class Floater : MonoBehaviour
     [SerializeField] private bool debugCurve;
     [SerializeField] private bool showForces = true;
     [SerializeField] private bool sidewaysDrag;
+    [SerializeField] private bool useForwardVelocity;
     
     private float frictionVelocity;
     private Vector3 steeringDir;
@@ -50,21 +51,27 @@ public class Floater : MonoBehaviour
             Vector3 steeringDirection = transform.right;
             float steeringVelocity = Vector3.Dot(steeringDirection, floaterWorldVelocity);
             
+            float forwardVelocity = Vector3.Dot(boatBody.velocity, boatBody.transform.forward);
+            float normalizedForwardVelocity = forwardVelocity / 40f;
+
+            float alpha = useForwardVelocity ? normalizedForwardVelocity : steeringVelocity;
+            
             if (debugCurve)
             {
                 Debug.Log("Velocity : " + steeringVelocity);
                 //Debug.Log("Drag : " + driftingCurve.Evaluate(Mathf.Abs(steeringVelocity)));
             }
 
-            float desiredVelocityChange = (-steeringVelocity * frictionCurve.Evaluate(Mathf.Abs(steeringVelocity)));
+            float desiredVelocityChange = (-steeringVelocity * frictionCurve.Evaluate(Mathf.Abs(alpha)));
             float desiredAcceleration = desiredVelocityChange / Time.fixedDeltaTime;
-           
+
             steeringDir = steeringDirection;
             frictionVelocity = desiredAcceleration;
             
             //Apply drag force
             if (sidewaysDrag)
             {
+                //Debug.Log("Forward Velocity : " + forwardVelocity);
                 boatBody.AddForceAtPosition(boatBody.mass * (steeringDirection * floaterMass * desiredAcceleration), floaterPosition);
             }
         }
