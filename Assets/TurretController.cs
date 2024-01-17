@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurretController : MonoBehaviour
 {
     [SerializeField] private Transform yAxle;
-    [SerializeField] private Transform xAxle;
+    //[SerializeField] private Transform xAxle;
 
     #region Unity Functions
 
@@ -38,7 +38,7 @@ public class TurretController : MonoBehaviour
 
     public void RotateHarpoon(float x, float y)
     {
-        xAxle.rotation = Quaternion.AngleAxis(x, Vector3.right);
+       // xAxle.rotation = Quaternion.AngleAxis(x, Vector3.right);
         yAxle.rotation = Quaternion.AngleAxis(y, Vector3.up);
     }
 
