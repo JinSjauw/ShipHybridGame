@@ -94,7 +94,7 @@ public class UI : MonoBehaviour
     private void UpdateRectMask()
     {
         float normalizedthrottle = Mathf.InverseLerp(0, 1, Throttle);
-        float remappedthrottle = Mathf.Lerp(81, 33, normalizedthrottle);
+        float remappedthrottle = Mathf.Lerp(161, 66, normalizedthrottle);
 
         float rectTop = remappedthrottle;
 
