@@ -27,6 +27,8 @@ public class FishingSpot : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (netController == null) return;
+
         if (netController.IsHookLowered())
         {
             if (timer < fishingTime)

@@ -38,8 +38,8 @@ public class TurretController : MonoBehaviour
 
     public void RotateHarpoon(float x, float y)
     {
-        xAxle.rotation = Quaternion.AngleAxis(x, Vector3.up);
-        yAxle.rotation = Quaternion.AngleAxis(y, Vector3.right);
+        xAxle.rotation = Quaternion.AngleAxis(x, Vector3.right);
+        yAxle.rotation = Quaternion.AngleAxis(y, Vector3.up);
     }
 
     #endregion

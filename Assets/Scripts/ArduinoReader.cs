@@ -30,7 +30,12 @@ public class ArduinoReader : MonoBehaviour
     private int maxHarpoonXangle = 120;
     private int maxHarpoonYangle = 120;
 
+    private bool harpoonButtonPressed;
     private int harpoonButton;
+    private bool netButtonPressed;
+    private int netButton;
+    private bool craneButtonPressed;
+    private int craneButton;
 
     #region Unity Functions
 
@@ -90,24 +95,40 @@ public class ArduinoReader : MonoBehaviour
                 thrust = thrustValue / maxThrustValue;
             }
 
-            if (Int32.TryParse(data[3], out int x))
+            if (Int32.TryParse(data[2], out int x))
             {
                 //Max turnAngle is set here
                 harpoonX = x;
             }
 
-            if (Int32.TryParse(data[4], out int y))
+            if (Int32.TryParse(data[3], out int y))
             {
                 //Max turnAngle is set here
                 harpoonY = y;
             }
 
-            if(Int32.TryParse(data[5], out int buttonState)) 
+            if(Int32.TryParse(data[4], out int buttonState)) 
             {
                 harpoonButton = buttonState;
             }
+            if(Int32.TryParse(data[5], out int netButtonState)) 
+            {
+                //Drop Net
+               
+            }
+            if(Int32.TryParse(data[6], out int craneButtonState)) 
+            {
+                //Actuate Crane
+            }
             //Debug.Log(data.Length);
         }
+    }
+
+    private int ReadButton(int state) 
+    {
+
+
+        return 0;
     }
 
     public void Initialize(float turnAngleMax, float thrustValueMax)
