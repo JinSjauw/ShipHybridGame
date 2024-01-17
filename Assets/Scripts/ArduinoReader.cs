@@ -8,12 +8,14 @@ public class ArduinoReader : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI label;
     //[SerializeField] private BoatController boatController;
-    
+    [SerializeField] private BoatEngineSounds boatEngineSounds;
+
+
     private SerialPort stream = new SerialPort("COM3", 9600);
-    
+
     private Thread thread;
     private bool isRunning = false;
-    
+
     private string receivedString;
     private string[] data;
     private int turnAngle;
@@ -21,7 +23,7 @@ public class ArduinoReader : MonoBehaviour
 
     private float maxTurnAngle = 25;
     private float maxThrustValue = 90;
-    
+
     #region Unity Functions
 
     private void Awake()
@@ -33,10 +35,10 @@ public class ArduinoReader : MonoBehaviour
     private void Update()
     {
         if (!isRunning) return;
-        
-        label.text = "Turn Angle: " + turnAngle + "\n" 
+
+        label.text = "Turn Angle: " + turnAngle + "\n"
                      + "Thrust: " + thrust;
-        
+        boatEngineSounds.thrustBellSound(thrust);
         /*boatController.SetThrust(thrust);
         boatController.SetTurnAngle(turnAngle);*/
     }
@@ -56,11 +58,11 @@ public class ArduinoReader : MonoBehaviour
         {
             receivedString = stream.ReadLine();
             stream.BaseStream.Flush();
-        
+
             if(receivedString == null) return;
-        
+
             data = receivedString.Split(",");
-            
+
             if (Int32.TryParse(data[0], out int turnRate))
             {
                 //Max turnAngle is set here
@@ -69,7 +71,7 @@ public class ArduinoReader : MonoBehaviour
                     turnAngle += turnRate;
                 }
             }
-            
+
             if (float.TryParse(data[1], out float thrustValue))
             {
                 if (thrustValue < 0)
@@ -79,7 +81,7 @@ public class ArduinoReader : MonoBehaviour
 
                 thrust = thrustValue / maxThrustValue;
             }
-        
+
             //Debug.Log(data.Length);
         }
     }
@@ -89,7 +91,7 @@ public class ArduinoReader : MonoBehaviour
         maxTurnAngle = turnAngleMax;
         maxThrustValue = thrustValueMax;
     }
-    
+
     public void StartThread()
     {
         // Creates and starts the thread

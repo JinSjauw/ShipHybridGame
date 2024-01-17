@@ -3,20 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - HarpoonCamera
-  - Whale
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Ground
-  - FishingSpot
-  - NetBody
-  - Whale
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

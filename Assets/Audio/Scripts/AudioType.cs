@@ -5,6 +5,10 @@
         NONE,
         SFX_ENGINE,
         SFX_WATERSPLASH,
-        ST_MUSIC
+        ST_MUSIC,
+        WATERSOUNDS,
+        BOATSOUNDS,
+        Hallo,
+        DRIFTSOUNDS,
     }
 }
