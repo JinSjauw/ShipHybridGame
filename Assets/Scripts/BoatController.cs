@@ -318,7 +318,7 @@ public class BoatController : MonoBehaviour, IDamageable
 
     #region Public Functions
 
-    private float SidewaysVelocity()
+    public float SidewaysVelocity()
     {
         return Vector3.Dot(boatBody.velocity, transform.right);
     }
@@ -326,6 +326,11 @@ public class BoatController : MonoBehaviour, IDamageable
     public NetController GetNetController()
     {
         return netController;
+    }
+
+    public bool IsDrifting() 
+    {
+        return isDrifting;
     }
 
     #endregion
