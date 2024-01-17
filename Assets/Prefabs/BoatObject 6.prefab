@@ -100,16 +100,26 @@ MonoBehaviour:
   maxFishBallRadius: 1.2
   maxFishCount: 25
   fishNetFull: 0
+  fishAudioStep: 4
+  fishAudioCount: 0
+  Sounds:
+  - {fileID: 8300000, guid: 1cb7ca1665be09b4a958a7368179f95e, type: 3}
+  - {fileID: 8300000, guid: e27f054333dde934fb80ecc4357b5dba, type: 3}
+  - {fileID: 8300000, guid: 789a1374ba131884982165508cb1c1d2, type: 3}
+  - {fileID: 8300000, guid: 9ce61170585232846a6c6c624349bfc0, type: 3}
+  - {fileID: 8300000, guid: 9811a279214e2ed43a90bf1b8cd85b62, type: 3}
+  clip: {fileID: 0}
+  myAudioSource: {fileID: 3182955396377444149}
   fishCatch1: 0
-  playThreshold1: 0
+  playThreshold1: 0.1004
   fishCatch2: 0
-  playThreshold2: 0
+  playThreshold2: 0.221
   fishCatch3: 0
-  playThreshold3: 0
+  playThreshold3: 0.497
   fishCatch4: 0
-  playThreshold4: 0
+  playThreshold4: 0.715
   fishCatch5: 0
-  playThreshold5: 0
+  playThreshold5: 0.9
 --- !u!114 &4775894775020795490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +602,66 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: -0.00000023841858, z: -0.0000019073486}
+--- !u!1 &625843823005507836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6708928791893154968}
+  - component: {fileID: 3134492594892684219}
+  - component: {fileID: 7999223452871719037}
+  m_Layer: 0
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6708928791893154968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625843823005507836}
+  m_LocalRotation: {x: 0.025960278, y: -0.0016262309, z: 0.062499344, w: 0.997706}
+  m_LocalPosition: {x: -0.03, y: 5.799, z: 4.998}
+  m_LocalScale: {x: 1.6480175, y: 0.60751134, z: 0.6133665}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1393536425849882613}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 2.981, y: 0, z: 7.169}
+--- !u!114 &3134492594892684219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625843823005507836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377d2b27a8a271a4eb1dc185735a2c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7999223452871719037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625843823005507836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3983c989509ff41bb308bd89d2295b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletSpawnPoint: {fileID: 6708928791893154968}
+  BulletPrefab: {fileID: 4214278852706022057, guid: 30036590a6025e54c99e529fedb45c92, type: 3}
+  bulletspeed: 3000
 --- !u!1 &632874025548924331
 GameObject:
   m_ObjectHideFlags: 0
@@ -6720,7 +6790,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  turnSpeed: 1
+  turnSpeed: 1.34
   maxTurnAngle: 50
   dragCurve:
     serializedVersion: 2
@@ -6793,7 +6863,7 @@ MonoBehaviour:
   leftDriftParticle: {fileID: 3001433287950693411}
   rightDriftParticle: {fileID: 7112873894028929165}
   wakeParticle: {fileID: 8590192399976204176}
-  minStartDriftVelocity: 30.2
+  minStartDriftVelocity: 15.5
   minEndDriftVelocity: 7
   netController: {fileID: 8164545163337078452}
   turretController: {fileID: 7781476285623306616}
@@ -8565,6 +8635,11 @@ MonoBehaviour:
   maxFishBallRadius: 1.2
   maxFishCount: 0
   fishNetFull: 0
+  fishAudioStep: 4
+  fishAudioCount: 0
+  Sounds: []
+  clip: {fileID: 0}
+  myAudioSource: {fileID: 0}
   fishCatch1: 0
   playThreshold1: 0
   fishCatch2: 0
@@ -9201,6 +9276,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7485814687350224053}
+  - {fileID: 6708928791893154968}
   - {fileID: 6429302355823122037}
   - {fileID: 7046906873406197964}
   - {fileID: 7552728022372650431}
