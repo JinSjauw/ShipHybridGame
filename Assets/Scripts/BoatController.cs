@@ -199,6 +199,17 @@ public class BoatController : MonoBehaviour, IDamageable
 
     private void HandleInput()
     {
+
+        if (arduinoReader.GetNetButton()) 
+        {
+            netController.DropFishNet();
+        }
+
+        if (arduinoReader.GetHarpoonButton())
+        {
+            turretController.Shoot();
+        }
+
         boatSpeed = Vector3.Dot(transform.forward, boatBody.velocity);
         normalizedSpeed = Mathf.Clamp01(Mathf.Abs(boatSpeed / boatTopSpeed));
 

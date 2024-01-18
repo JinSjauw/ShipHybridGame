@@ -52,14 +52,16 @@ public class TurretController : MonoBehaviour
     {
         if (context.performed && canShoot)
         {
-            harpoonPlaceHolder.gameObject.SetActive(false);
+            /*harpoonPlaceHolder.gameObject.SetActive(false);
             canShoot = false;
             //Shoot.
             Rigidbody bulletBody = Instantiate(harpoonPrefab, muzzle.position, Quaternion.identity).GetComponent<Rigidbody>();
             bulletBody.transform.forward = muzzle.forward;
             bulletBody.AddForce(bulletBody.mass * (muzzle.forward * bulletSpeed));
 
-            StartCoroutine(ReloadHarpoon());
+            StartCoroutine(ReloadHarpoon());*/
+
+            Shoot();
         }
     }
 
@@ -77,6 +79,18 @@ public class TurretController : MonoBehaviour
     #endregion
 
     #region Public Functions
+
+    public void Shoot() 
+    {
+        harpoonPlaceHolder.gameObject.SetActive(false);
+        canShoot = false;
+        //Shoot.
+        Rigidbody bulletBody = Instantiate(harpoonPrefab, muzzle.position, Quaternion.identity).GetComponent<Rigidbody>();
+        bulletBody.transform.forward = muzzle.forward;
+        bulletBody.AddForce(bulletBody.mass * (muzzle.forward * bulletSpeed));
+
+        StartCoroutine(ReloadHarpoon());
+    }
 
     public void RotateHarpoon(float x, float y)
     {

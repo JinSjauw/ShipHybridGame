@@ -32,10 +32,10 @@ public class ArduinoReader : MonoBehaviour
 
     private bool harpoonButtonPressed;
     private int harpoonButton;
+
     private bool netButtonPressed;
     private int netButton;
-    private bool craneButtonPressed;
-    private int craneButton;
+    
 
     #region Unity Functions
 
@@ -107,20 +107,19 @@ public class ArduinoReader : MonoBehaviour
                 harpoonY = y;
             }
 
-            if(Int32.TryParse(data[4], out int buttonState)) 
+            if(Int32.TryParse(data[4], out int harpoonButtonState)) 
             {
-                harpoonButton = buttonState;
+                if(harpoonButtonState == 1 && !harpoonButtonPressed)
+                {
+                    harpoonButtonPressed = true;
+                }
             }
             if(Int32.TryParse(data[5], out int netButtonState)) 
             { 
                 //Drop Net
-                if (netButtonState == 1 && netButton != 1)
+                if(netButtonState == 1 && !netButtonPressed) 
                 {
                     netButtonPressed = true;
-                }
-                else
-                {
-                    netButton = 0;
                 }
             }
             //Debug.Log(data.Length);
@@ -166,14 +165,25 @@ public class ArduinoReader : MonoBehaviour
         return new Vector3(harpoonX, harpoonY, harpoonButton);
     }
 
-    public int GetNetButton()
+    public bool GetNetButton()
     {
         if (netButtonPressed)
         {
             netButtonPressed = false;
-            return 1;
+            return true;
         }
 
-        return 0;
+        return false;
+    }
+
+    public bool GetHarpoonButton()
+    {
+        if (harpoonButtonPressed)
+        {
+            harpoonButtonPressed = false;
+            return true;
+        }
+
+        return false;
     }
 }
