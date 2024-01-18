@@ -252,7 +252,7 @@ public class BoatController : MonoBehaviour, IDamageable
         //Harpoon Input
         Vector3 harpoonInput = arduinoReader.GetHarpoonInput();
 
-        turretController.RotateHarpoon(harpoonInput.x, harpoonInput.y);
+        //turretController.RotateHarpoon(harpoonInput.x, harpoonInput.y);
 
        /*if(harpoonInput.z == 1)
         {

@@ -614,10 +614,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6708928791893154968}
-  - component: {fileID: 3134492594892684219}
   - component: {fileID: 7999223452871719037}
   m_Layer: 0
-  m_Name: BulletSpawnPoint
+  m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -630,26 +629,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625843823005507836}
-  m_LocalRotation: {x: 0.025960278, y: -0.0016262309, z: 0.062499344, w: 0.997706}
-  m_LocalPosition: {x: -0.03, y: 5.799, z: 4.998}
-  m_LocalScale: {x: 1.6480175, y: 0.60751134, z: 0.6133665}
+  m_LocalRotation: {x: 0.020160086, y: -0.00024138743, z: -0.024627302, w: 0.9994934}
+  m_LocalPosition: {x: -0.005, y: 6.131, z: 5.119}
+  m_LocalScale: {x: 1.6480175, y: 0.95853144, z: 0.808969}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1393536425849882613}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 2.981, y: 0, z: 7.169}
---- !u!114 &3134492594892684219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 625843823005507836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 377d2b27a8a271a4eb1dc185735a2c81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_LocalEulerAnglesHint: {x: 2.309, y: -0.085, z: -2.825}
 --- !u!114 &7999223452871719037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6159,6 +6146,38 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &1467389749943756177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 758344015266458943}
+  m_Layer: 7
+  m_Name: Harpoon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &758344015266458943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467389749943756177}
+  m_LocalRotation: {x: 0.020153629, y: -0.000562078, z: -0.008720337, w: 0.9997588}
+  m_LocalPosition: {x: 0.005, y: 6.22, z: 5.78}
+  m_LocalScale: {x: 1.8042494, y: 1.2083249, z: 0.893587}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 180126743698922740}
+  m_Father: {fileID: 1393536425849882613}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 2.309, y: -0.085, z: -1.001}
 --- !u!1 &1779927311499937462
 GameObject:
   m_ObjectHideFlags: 0
@@ -6942,6 +6961,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 12524b7c-53ce-4f74-8c30-474dcabde25a
     m_ActionName: Gameplay/DropNet[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7781476285623306616}
+        m_TargetAssemblyTypeName: TurretController, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b562cc84-ff7a-44f6-b41c-38f1cdfda603
+    m_ActionName: Gameplay/FireHarpoon[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7bc8968f-ae4a-4e30-a899-6c39454b9e68
+    m_ActionName: Gameplay/MousePosition[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -8954,89 +8993,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4761495097847629406
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6429302355823122037}
-  - component: {fileID: 7781057474889597780}
-  - component: {fileID: 1395290106404163691}
-  m_Layer: 7
-  m_Name: Cube.002
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6429302355823122037
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4761495097847629406}
-  m_LocalRotation: {x: -0.7071069, y: -0.000000059604645, z: -0.00000003365591, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: 5.996237, z: 4.304749}
-  m_LocalScale: {x: 16.440796, y: 16.44079, z: 16.440792}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1393536425849882613}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7781057474889597780
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4761495097847629406}
-  m_Mesh: {fileID: -1550514412580984892, guid: cbe5549607ddeac499db4332114d921e, type: 3}
---- !u!23 &1395290106404163691
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4761495097847629406}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 3e0c1edbc8c26ce4c994da595a9dbf21, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4782017729931386355
 GameObject:
   m_ObjectHideFlags: 0
@@ -9265,8 +9221,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7485814687350224053}
+  - {fileID: 758344015266458943}
   - {fileID: 6708928791893154968}
-  - {fileID: 6429302355823122037}
   - {fileID: 7046906873406197964}
   - {fileID: 7552728022372650431}
   - {fileID: 6344397868829292653}
@@ -9359,6 +9315,89 @@ Transform:
   m_Father: {fileID: 5704470978260110555}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -4.609, y: 0, z: 0}
+--- !u!1 &5915868794620533356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 180126743698922740}
+  - component: {fileID: 3828677382953398969}
+  - component: {fileID: 1658163317467241384}
+  m_Layer: 0
+  m_Name: harpoonprojectile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &180126743698922740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5915868794620533356}
+  m_LocalRotation: {x: -0.7167858, y: 0.000000044441535, z: 0.000000005013133, w: 0.69729346}
+  m_LocalPosition: {x: -0, y: -0.051, z: -0.013}
+  m_LocalScale: {x: 32.758, y: 32.758, z: 32.758}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 758344015266458943}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: -91.579, y: 0, z: 0}
+--- !u!33 &3828677382953398969
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5915868794620533356}
+  m_Mesh: {fileID: -8678823145569952518, guid: 5dfc0739be6da1d43bfdacd4fd1ae0d0, type: 3}
+--- !u!23 &1658163317467241384
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5915868794620533356}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -3846018093981099296, guid: 5dfc0739be6da1d43bfdacd4fd1ae0d0, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5937294715516943855
 GameObject:
   m_ObjectHideFlags: 0
@@ -15133,7 +15172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &689788473030310388
 Transform:
   m_ObjectHideFlags: 0
@@ -15162,8 +15201,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa8a523325c3a54a8b95989ac037063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yAxle: {fileID: 5704470978260110555}
-  xAxle: {fileID: 6707904248492807737}
+  HarpoonBase: {fileID: 5704470978260110555}
+  HarpoonGun: {fileID: 6707904248492807737}
+  sensitivity: 0.2
+  harpoonPrefab: {fileID: 6976013148049015357, guid: 31d8500c264b58e468ffd0c9467ff0cd, type: 3}
+  harpoonPlaceHolder: {fileID: 758344015266458943}
+  muzzle: {fileID: 6708928791893154968}
+  bulletSpeed: 3000
+  reloadTime: 2
 --- !u!1 &7268571107875585181
 GameObject:
   m_ObjectHideFlags: 0
