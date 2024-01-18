@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
@@ -9,10 +6,12 @@ public class ScanForObject : ActionNode
     //public float maxWaitTime = 5f;
     public float scanRadius;
     public LayerMask layer;
+
+    private Collider[] hits;
     
     protected override void OnStart()
     {
-        //Physics.SphereCastAll()
+        hits = Physics.OverlapSphere(context.whaleBody.position, scanRadius, layer);
     }
 
     protected override void OnStop() 
@@ -20,7 +19,12 @@ public class ScanForObject : ActionNode
         
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
+        if (hits.Length <= 0) return State.Failure;
+      
+        
+        
         return State.Success;
     }
 }
