@@ -27,7 +27,7 @@ public class ChargeAttack : ActionNode
     
     protected override void OnStart()
     {
-        Debug.Log("Charge Attack!");
+        //Debug.Log("Charge Attack!");
         
         //targetDirection = blackboard.PlayerTransform.position - context.transform.position;
         //targetPosition = targetDirection.normalized * chargeLength;
@@ -62,8 +62,8 @@ public class ChargeAttack : ActionNode
 
         normalizedDistance = 1 - Mathf.Clamp01(distance / totalDistance);
         
-        Debug.Log("[ChargeAttack]:[distance]: " + distance + " [maxDistance]: " + totalDistance);
-        Debug.Log("[ChargeAttack]:[NormalizedDistance]: " + normalizedDistance);
+        //Debug.Log("[ChargeAttack]:[distance]: " + distance + " [maxDistance]: " + totalDistance);
+        //Debug.Log("[ChargeAttack]:[NormalizedDistance]: " + normalizedDistance);
 
         float depth = Mathf.Lerp(originPosition.y, WaveManager.Instance.FindPoint(target2D).y, depthCurve.Evaluate(normalizedDistance));
 
@@ -72,15 +72,15 @@ public class ChargeAttack : ActionNode
         switch (normalizedDistance)
         {
             case > .85f:
-                Debug.Log("[ChargeAttack]: Charge End");
+                //Debug.Log("[ChargeAttack]: Charge End");
                 context.animator.Play("Charge_End");
                 break;
             case > .25f:
-                Debug.Log("[ChargeAttack]: Charge Mid");
+                //Debug.Log("[ChargeAttack]: Charge Mid");
                 context.animator.Play("Charge_Loop");
                 break;
             case < .25f:
-                Debug.Log("[ChargeAttack]: Charge Start");
+                //Debug.Log("[ChargeAttack]: Charge Start");
                 context.animator.Play("Charge_Start");
                 break;
         }

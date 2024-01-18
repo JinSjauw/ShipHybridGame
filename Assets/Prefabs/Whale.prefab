@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 3709629841967860792}
   - component: {fileID: 20053396285128581}
   - component: {fileID: 9108169098805071741}
+  - component: {fileID: 1638023283008402806}
   m_Layer: 0
   m_Name: Whale
   m_TagString: Untagged
@@ -124,14 +125,14 @@ Transform:
   m_GameObject: {fileID: 231663588017234035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.0467587, y: -7.69, z: -8.94}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 385.4705, y: 385.4705, z: 385.4705}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7461403557031375917}
   - {fileID: 1411243997379419635}
   - {fileID: 7745316919686490740}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3709629841967860792
 MonoBehaviour:
@@ -181,10 +182,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileList:
-  - {fileID: 1182744609604246860, guid: 4b087234d97095c43a31a37b26eba478, type: 3}
+  - {fileID: 5447118735131056349, guid: 34eee23c10b505346abba06e6a76b098, type: 3}
+  - {fileID: 1502688593219598372, guid: 579f8198cbb053e4197510b8d0d96df1, type: 3}
   launchDelay: 0.2
   spawnHeight: 30
   debug: 1
+--- !u!114 &1638023283008402806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231663588017234035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ebfcc72ce3bd564da024105b1f35c90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20000
 --- !u!1 &402363444718548461
 GameObject:
   m_ObjectHideFlags: 0

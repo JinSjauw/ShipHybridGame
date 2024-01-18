@@ -3,9 +3,6 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-
-
-
     [SerializeField] public float Throttle;
     [SerializeField] public int Health;
     [SerializeField] public float TurnAngle;

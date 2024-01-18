@@ -20,7 +20,8 @@ public class WhaleLauncher : MonoBehaviour
             Vector3 targetPosition = target.position;
             targetPosition.y = spawnHeight;
             Log("Fired Projectile #" + i);
-            Instantiate(projectileList[0], targetPosition, Quaternion.identity);
+            int prefabIndex = Random.Range(0, projectileList.Count - 1);
+            Instantiate(projectileList[prefabIndex], targetPosition, Quaternion.identity);
             yield return new WaitForSeconds(launchDelay);
         }
     }

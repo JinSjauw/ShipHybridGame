@@ -2,19 +2,18 @@ using UnityEngine;
 
 public class Fish : MonoBehaviour
 {
-    //public GameObject AllFish;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private bool FollowWaves;
+    [SerializeField] private Transform fishBody;
+    [SerializeField] private float depthOffset;
+    
+    void FixedUpdate()
     {
-
-        //AllFish = GameObject.FindWithTag("AllFish");
-     // Fishcount.GetComponent<FishSound>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        /*if (FollowWaves)
+        {
+            Vector3 newPosition = fishBody.transform.position;
+            newPosition.y = WaveManager.Instance.FindPoint(new Vector2(newPosition.x, newPosition.z)).y - depthOffset;
+            fishBody.transform.position = newPosition;
+        }    */
     }
 
     private void OnTriggerEnter(Collider other)

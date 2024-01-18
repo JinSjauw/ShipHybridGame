@@ -50,6 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d84d9746516d341bee6b44afeaac2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStatic: 0
+  maxForwardVel: 0
+  maxSideVel: 0
   anchor: {fileID: 587472490445238039}
   hook: {fileID: 5178246796505417616}
   hookRotationCurve:
@@ -6660,7 +6663,7 @@ Transform:
   - {fileID: 6699787937948814485}
   - {fileID: 9169654814438895745}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2953639335190022651
 Rigidbody:
@@ -6735,6 +6738,7 @@ MonoBehaviour:
   - {fileID: 5207731128654556084}
   nose: {fileID: 8179169952521242334}
   showForces: 1
+  maxHealth: 400
   useArduino: 0
   maxArduinoTurnAngle: 25
   maxArduinoThrustValue: 90
@@ -6790,7 +6794,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  turnSpeed: 1.34
+  turnSpeed: 1
   maxTurnAngle: 50
   dragCurve:
     serializedVersion: 2
@@ -6820,40 +6824,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0027347445
-      value: 0.990566
-      inSlope: -8.362548
-      outSlope: -8.362548
-      tangentMode: 0
+      time: 0
+      value: 0.0754717
+      inSlope: 0.18923908
+      outSlope: 0.18923908
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.13032107
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.16933869
-      value: 0.099395074
-      inSlope: -0.18715762
-      outSlope: -0.18715762
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.10446776
-    - serializedVersion: 3
-      time: 0.7525555
-      value: 0.055331476
-      inSlope: 0.046844494
-      outSlope: 0.046844494
+      time: 0.99704146
+      value: 0.26415092
+      inSlope: 0.18923908
+      outSlope: 0.18923908
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.99697894
-      value: 0.09669811
-      inSlope: 0.35264954
-      outSlope: 0.35264954
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.13853802
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -6863,7 +6849,7 @@ MonoBehaviour:
   leftDriftParticle: {fileID: 3001433287950693411}
   rightDriftParticle: {fileID: 7112873894028929165}
   wakeParticle: {fileID: 8590192399976204176}
-  minStartDriftVelocity: 15.5
+  minStartDriftVelocity: 12
   minEndDriftVelocity: 7
   netController: {fileID: 8164545163337078452}
   turretController: {fileID: 7781476285623306616}
@@ -8612,6 +8598,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d84d9746516d341bee6b44afeaac2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStatic: 0
+  maxForwardVel: 0
+  maxSideVel: 0
   anchor: {fileID: 2414423677618835491}
   hook: {fileID: 0}
   hookRotationCurve:
@@ -15144,7 +15133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &689788473030310388
 Transform:
   m_ObjectHideFlags: 0

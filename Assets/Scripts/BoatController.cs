@@ -16,13 +16,15 @@ public class BoatController : MonoBehaviour, IDamageable
     [SerializeField] private Transform nose;
     [SerializeField] private bool showForces;
 
+    [Header("Boat Gameplay Variables")] 
+    [SerializeField] private int maxHealth;
+    
     [Header("Boat Locomotion")]
 
     [Header("Arduino Parameters")]
     [Header("Use Arduino")][SerializeField] private bool useArduino;
     [SerializeField] private float maxArduinoTurnAngle;
     [SerializeField] private float maxArduinoThrustValue;
-    private ArduinoReader arduinoReader;
 
     [Header("Boat Acceleration")]
     [SerializeField] private float boatTopSpeed;
@@ -51,19 +53,22 @@ public class BoatController : MonoBehaviour, IDamageable
     [SerializeField] private TurretController turretController;
 
     private Rigidbody boatBody;
+    private ArduinoReader arduinoReader;
+    private UIController uiController;
+    private float lastThrustValue;
+    private float savedThrustValue;
 
     private bool isMoving;
     private bool isTurning;
     private bool isDrifting;
 
-    [SerializeField] private float throttle;
-    [SerializeField] private float thrust;
-    [SerializeField] private float boatSpeed;
+    private float throttle;
+    private float thrust;
+    private float boatSpeed;
     private float normalizedSpeed;
 
     private float turnRate;
-    [SerializeField] public float turnAngle;
-
+    private float turnAngle;
     private int Health { get; set; }
 
     private bool debug;
@@ -74,6 +79,7 @@ public class BoatController : MonoBehaviour, IDamageable
     {
         arduinoReader = GetComponent<ArduinoReader>();
         boatBody = GetComponent<Rigidbody>();
+        Health = maxHealth;
     }
 
     void Start()
@@ -96,6 +102,18 @@ public class BoatController : MonoBehaviour, IDamageable
         if (useArduino && !arduinoReader.IsRunning())
         {
             arduinoReader.StartThread();
+        }
+    }
+
+    private void Update()
+    {
+        if (isDrifting && !netController.IsHookLowered())
+        {
+            netController.ActuateHook();
+        }
+        else if (!isDrifting && netController.IsHookLowered())
+        {
+            netController.ActuateHook();
         }
     }
 
@@ -163,7 +181,7 @@ public class BoatController : MonoBehaviour, IDamageable
     {
         if (context.performed)
         {
-            netController.ActuateHook();
+            //netController.ActuateHook();
         }
     }
 
@@ -185,7 +203,7 @@ public class BoatController : MonoBehaviour, IDamageable
         normalizedSpeed = Mathf.Clamp01(Mathf.Abs(boatSpeed / boatTopSpeed));
 
         float thrustValue = useArduino ? arduinoReader.GetThrust() : throttle;
-
+        
         if (thrustValue > 0 && WaterCheck())
         {
             if (normalizedSpeed >= .99f)
@@ -226,7 +244,8 @@ public class BoatController : MonoBehaviour, IDamageable
         }
         else
         {
-            Vector3 angularVelocity = new Vector3(0, arduinoReader.GetTurnAngle(), 0);
+            turnAngle = arduinoReader.GetTurnAngle();
+            Vector3 angularVelocity = new Vector3(0, turnAngle, 0);
             boatBody.angularVelocity = (turnSpeed * angularVelocity) * normalizedSpeed;
         }
 
@@ -235,11 +254,15 @@ public class BoatController : MonoBehaviour, IDamageable
 
         turretController.RotateHarpoon(harpoonInput.x, harpoonInput.y);
 
-       if(harpoonInput.z == 1)
+       /*if(harpoonInput.z == 1)
         {
             turretController.ShootHarpoon();
-        }
-
+        }*/
+       if (lastThrustValue != thrustValue)
+       {
+           lastThrustValue = thrustValue;
+           uiController.UpdateThrottle(lastThrustValue);
+       }
     }
     private void KeepUpright()
     {
@@ -311,7 +334,6 @@ public class BoatController : MonoBehaviour, IDamageable
             isDrifting = false;
         }
     }
-
     private void Log(string _msg)
     {
         if (!debug) return;
@@ -342,19 +364,39 @@ public class BoatController : MonoBehaviour, IDamageable
         return isDrifting;
     }
 
+    public Vector2 GetTurnValues()
+    {
+        return new Vector2(turnAngle, useArduino ? maxArduinoTurnAngle : maxTurnAngle);
+    }
+
+    public void SetUIController(UIController ui)
+    {
+        uiController = ui;
+    }
+
+    public void SetFishUI(float percentage)
+    {
+        uiController.UpdateFishing(percentage);
+    }
+    
     #endregion
 
     #region IDamageable Functions
-
-
+    
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        uiController.UpdateHealth(Health / (float)maxHealth);
+        if (Health <= 0)
+        {
+            Die();
+        }
     }
 
     public void SetHealth(int amount)
     {
         Health = amount;
+        uiController.UpdateHealth(Health / (float)maxHealth);
     }
 
     public void Die()
