@@ -14,6 +14,7 @@ public class TurretController : MonoBehaviour
     [SerializeField] private Transform muzzle;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float reloadTime;
+    [SerializeField] private bool useArduino = true;
 
     private float lastX;
     private float lastY;
@@ -36,6 +37,8 @@ public class TurretController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (useArduino) return;
+
         mousePosition = Mouse.current.delta.value;
         
         RotateHarpoon(mousePosition.x * sensitivity, mousePosition.y * -sensitivity);
@@ -77,8 +80,19 @@ public class TurretController : MonoBehaviour
 
     public void RotateHarpoon(float x, float y)
     {
-        HarpoonGun.localRotation *= Quaternion.AngleAxis(y, Vector3.right);
-        HarpoonBase.localRotation *= Quaternion.AngleAxis(x, Vector3.up);
+
+        if (useArduino) 
+        {
+            //HarpoonGun.rotation = Quaternion.AngleAxis(y, Vector3.right);
+            HarpoonBase.rotation = Quaternion.AngleAxis(y, Vector3.up);
+        }
+        else 
+        {
+            HarpoonGun.localRotation *= Quaternion.AngleAxis(y, Vector3.right);
+            HarpoonBase.localRotation *= Quaternion.AngleAxis(x, Vector3.up);
+        }
+
+        
     }
 
     #endregion
