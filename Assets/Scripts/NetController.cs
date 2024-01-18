@@ -70,7 +70,6 @@ public class NetController : MonoBehaviour
     private int fishCount;
     private float fishCapacityPercentage;
     private SphereCollider netBodyCollider;
-
     private BoatController boatController;
     // Have the ball follow an anchor;
     
@@ -158,10 +157,11 @@ public class NetController : MonoBehaviour
         private IEnumerator SpawnFishBall()
         {
             fishnetTransform.gameObject.SetActive(false);
-            FishBall fishball = Instantiate(fishBallPrefab, netTransform.position, Quaternion.identity).GetComponent<FishBall>();
-            fishball.SetFillPercentage(fishCapacityPercentage);
+            FishBall spawnedFishBall = Instantiate(fishBallPrefab, netTransform.position, Quaternion.identity).GetComponent<FishBall>();
+            spawnedFishBall.SetFillPercentage(fishCapacityPercentage);
+            spawnedFishBall.SetFishContent(fishBall.localScale);
             
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.75f);
             
             fishCount = 0;
             fishCapacityPercentage = 0;
@@ -210,7 +210,9 @@ public class NetController : MonoBehaviour
             
             fishBall.localScale = Vector3.one * fishBallSize; 
             
-            Debug.Log("[NetController]: [Fish Capacity %]" + fishCapacityPercentage);
+            boatController.SetFishUI(fishCapacityPercentage);
+            
+            //Debug.Log("[NetController]: [Fish Capacity %]" + fishCapacityPercentage);
             
             return true;
             
@@ -242,8 +244,8 @@ public class NetController : MonoBehaviour
 
         void CallAudio()
         {
-        clip = Sounds[UnityEngine.Random.Range(0, Sounds.Length)];
-        myAudioSource.PlayOneShot(clip);
+            clip = Sounds[UnityEngine.Random.Range(0, Sounds.Length)];
+            myAudioSource.PlayOneShot(clip);
         }
 
     #endregion
