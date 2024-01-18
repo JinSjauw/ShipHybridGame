@@ -22,9 +22,24 @@ public class ScanForObject : ActionNode
     protected override State OnUpdate()
     {
         if (hits.Length <= 0) return State.Failure;
-      
         
-        
+        //Get closest Object
+        float distance;
+        float closestDistance = scanRadius + 1;
+        Transform closestTransform = null;
+        foreach (Collider col in hits)
+        {
+            Vector3 colPosition = col.transform.position;
+            distance = Vector3.Distance(colPosition, context.whaleBody.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestTransform = col.transform;
+            }
+        }
+
+        blackboard.targetFishBall = closestTransform;
+
         return State.Success;
     }
 }
