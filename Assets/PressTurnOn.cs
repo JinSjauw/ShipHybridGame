@@ -4,31 +4,35 @@ using UnityEngine;
 
 public class PressTurnOn : MonoBehaviour
 {
-    public GameObject Audio1;
-    bool Klopt;
+    public BoatController boatController;
+    public bool Klopt;
     // Start is called before the first frame update
     void Start()
     {
-        Audio1.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
        
-        if (Input.GetKeyDown(KeyCode.P))
+   
+    }
+
+    public void DriftCamera()
+    {
+        var isDrifting = boatController.IsDrifting();
+
+        if (isDrifting)
         {
             Klopt = true;
-        }
+            Debug.Log("het werkt!!!");
        
-
-        if(Klopt == true)
-        {
-            Audio1.SetActive(true);
-        }
+       }
         else
         {
-            Audio1.SetActive(false);
+
         }
+
     }
+         
 }

@@ -6,6 +6,8 @@ public class CameraSwitch : MonoBehaviour
 {
     public BoatController boatController;
 
+    
+    
     public GameObject MainCamera;
     public GameObject DriftLeft;
     public GameObject DriftRight;
@@ -23,16 +25,18 @@ public class CameraSwitch : MonoBehaviour
 
     public void DriftCamera()
     {
+        
         var SidewaysVelocity = boatController.SidewaysVelocity();
         var isDrifting = boatController.IsDrifting();
 
         if(isDrifting)
         {
-            Debug.Log("isdrifting");
+            
             MainCamera.SetActive(false);
 
             if(SidewaysVelocity < 0)
             {
+
                 Debug.Log("Links");
                 DriftLeft.SetActive(true);
                 DriftRight.SetActive(false);
@@ -40,6 +44,7 @@ public class CameraSwitch : MonoBehaviour
 
             if(SidewaysVelocity > 0)
             {
+
                 Debug.Log("Rechts");
                 DriftLeft.SetActive(false);
                 DriftRight.SetActive(true);
